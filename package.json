@@ -9,9 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@openzeppelin/contracts": "^4.8.3",
     "dotenv": "^16.0.3",
+<<<<<<< HEAD
     "ethers": "^5.7.0",
     "react-bootstrap": "^2.7.4",
+=======
+    "prettier": "^2.8.8",
+>>>>>>> d4bcafb04a17ad9acffba29f67af3c05ff10eac3
     "truffle": "^5.8.4"
   }
 }

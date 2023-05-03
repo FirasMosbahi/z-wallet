@@ -1,0 +1,15 @@
+{
+  "name": "z-wallet",
+  "version": "1.0.0",
+  "description": "a blockchain wallet for financial uses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "truffle": "^5.8.4"
+  }
+}

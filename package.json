@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@openzeppelin/contracts": "^4.8.3",
     "dotenv": "^16.0.3",
+    "prettier": "^2.8.8",
     "truffle": "^5.8.4"
   }
 }

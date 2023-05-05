@@ -45,7 +45,7 @@ export const Banner = () => {
                             Welcome To Z-Wallet
                         </span>
                         <h1>
-                            {`Hi I'm Software developer `}
+                            {`Empower your investments `}
                         </h1>
                         <h2>
                             <span className='wrap'> {text}</span>

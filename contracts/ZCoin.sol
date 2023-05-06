@@ -27,6 +27,7 @@ contract ZCoin is ERC20Capped, ERC20Burnable {
     rate = _rate;
   }
 
+  //minting function
   function _mint(address account, uint256 amount)
   internal
   virtual
@@ -39,10 +40,12 @@ contract ZCoin is ERC20Capped, ERC20Burnable {
     super._mint(account, amount);
   }
 
+  //mining reward callback
   function _mintMinerReward() internal {
     _mint(block.coinbase, blockReward);
   }
 
+  //mining reward function
   function _beforeTokenTransfer(
     address from,
     address to,
@@ -58,10 +61,12 @@ contract ZCoin is ERC20Capped, ERC20Burnable {
     super._beforeTokenTransfer(from, to, value);
   }
 
+  //buy ZCoin with Eth function
   function buyWithEtherum() public payable {
     _mint(msg.sender, msg.value * rate);
   }
 
+  //Transfer function
   function transferTo(address to, uint256 amount) public {
     _transfer(msg.sender, to, amount);
     emit Transfer(msg.sender, to, amount);

@@ -1,34 +1,32 @@
-// SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract NFT is ERC721Enumerable, Ownable {
-  using Strings for uint256;
-  string private baseURI;
-  string public baseExtension = "json";
-  string public baseImage = "webp";
+contract NFT is ERC721URIStorage {
+  using Counters for Counters.Counter;
+  Counters.Counter private _tokenIds;
 
-  constructor(
-    string memory _name,
-    string memory _symbol,
-    string memory _initBaseURI
-  ) ERC721(_name, _symbol) {
-    baseURI = _initBaseURI;
+  address public owner;
+
+  constructor(string memory _name, string memory _symbol)
+  ERC721(_name, _symbol)
+  {
+    owner = msg.sender;
   }
 
-  function setBaseURI(string memory _newBaseURI) public onlyOwner {
-    baseURI = _newBaseURI;
+  //minting function with the uri of the image uploaded to ipfs
+  function mint(string memory tokenURI) public payable {
+    _tokenIds.increment();
+
+    uint256 newItemId = _tokenIds.current();
+    _mint(msg.sender, newItemId);
+    _setTokenURI(newItemId, tokenURI);
   }
 
-  function mint() public {
-    uint256 supply = totalSupply();
-    _safeMint(msg.sender, supply);
-    //    minted.push(MintedStruct(supply+1,msg.sender,toImage(supply+1),block.timestamp));
-    //    emit Minted(supply+1,msg.sender,tokenURI(supply+1),block.timestamp);
-  }
-
+  //transfer function
   function transferNFT(
     address from,
     address to,
@@ -41,36 +39,13 @@ contract NFT is ERC721Enumerable, Ownable {
     _transfer(from, to, tokenId);
   }
 
-  function tokenURI(uint256 tokenId)
-  public
-  view
-  virtual
-  override
-  returns (string memory)
-  {
-    require(_exists(tokenId), "ERC721Metadata:No token with this id");
-    return
-    bytes(baseURI).length > 0
-    ? string(abi.encodePacked(baseURI, tokenId, baseImage))
-    : "";
+  function totalSupply() public view returns (uint256) {
+    return _tokenIds.current();
   }
 
-  function toImage(uint256 tokenId)
-  public
-  view
-  virtual
-  returns (string memory)
-  {
-    return
-    bytes(baseURI).length > 0
-    ? string(abi.encodePacked(baseURI, tokenId, baseImage))
-    : "";
+  function withdraw() public {
+    require(msg.sender == owner);
+    (bool success, ) = owner.call{value: address(this).balance}("");
+    require(success);
   }
-  //  function getAnNFt(uint256 tokenId) public view returns (MintedStruct memory){
-  //    return minted[tokenId-1];
-  //  }
-  //  function transferTo(address to, uint256 tokenId) public {
-  //    require(msg.sender == minted[tokenId-1].nftOwner , "only the owner of the nft can send it");
-  //    minted[tokenId-1].nftOwner = to;
-  //  }
 }

@@ -5,7 +5,8 @@ import { ethers } from 'ethers'
 import { Banner } from './components/Banner';
 import { networks } from './networks';
 import Home from './components/Home';
-
+import NFTContractBuild from 'contracts/NFT.json'
+import Web3 from 'web3';
 function App() {
   const [defaulterrorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
@@ -14,13 +15,21 @@ function App() {
   const [isConnected, setIsConnected] = useState(false)
   const [accountName, setAccountName] = useState(null);
   const [networkName, setNetworkName] = useState(null)
-
+  let nftContract;
+  let isinitialzer=false;
   const ConnWalletHandler = () => {
     if (window.ethereum) {
       window.ethereum.request({ method: 'eth_requestAccounts' }).then(result => {
         accountChangeHandler(result[0])
         setConnButtonText("Wallet Connected")
         setIsConnected(true);
+        /*const web3=new Web3(result);
+        let idNetwork = web3.eth.net.getId()
+        console.log(NFTContractBuild.abi)
+        console.log(NFTContractBuild)
+        console.log(NFTContractBuild.networks[idNetwork].address)
+         nftContract = new web3.eth.Contract(NFTContractBuild.abi, NFTContractBuild.networks[idNetwork].address);
+        isinitialzer=true;*/
       })
     }
     else {
@@ -30,6 +39,12 @@ function App() {
       }
     }
   }
+  /*const minToken = async  ()=> {
+    if (!isinitialzer){
+      await ConnWalletHandler()
+    }
+    console.log(nftContract)
+  }*/
 
   const accountChangeHandler = (newAccount) => {
     getNetworkId()
@@ -61,7 +76,7 @@ function App() {
   return (
     <div className="App">
       <NavBar connectHandler={ConnWalletHandler} connButtonText={connButtonText} />
-      {isConnected ? <Home connectHandler={ConnWalletHandler}  userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} /> : <Banner />}
+      {isConnected ? <Home connectHandler={ConnWalletHandler} userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} /> : <Banner />}
     </div>
   );
 }

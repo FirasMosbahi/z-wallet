@@ -6,12 +6,11 @@ module.exports = async function(deployer) {
   const zInitialValue = 100000;
   const zCappedAt = 1000000;
   const zRate = 1;
-  const nftBaseURI = "https://z-awesome-nfts.com/token/";
   const mintCostETH = web3.utils.toWei("0.1", "ether"); // 0.1 ether
   const mintCostZTK = web3.utils.toWei("1000", "ether"); // 1000 ZTK
 
   // Deploy contracts
-  await deployer.deploy(nft, "z-awesome-nfts", "z-nft", nftBaseURI);
+  await deployer.deploy(nft, "z-awesome-nfts", "z-nft");
   const nftContract = await nft.deployed();
 
   await deployer.deploy(zCoin, zBlockReward, zInitialValue, zCappedAt, zRate);
@@ -23,7 +22,6 @@ module.exports = async function(deployer) {
     zInitialValue,
     zCappedAt,
     zRate,
-    nftBaseURI,
     mintCostETH,
     mintCostZTK
   );

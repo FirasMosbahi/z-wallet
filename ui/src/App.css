@@ -54,7 +54,7 @@ nav.navbar {
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 9999;
+  z-index: 9998;
   transition: 0.32s ease-in-out;
 }
 h1{
@@ -220,7 +220,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .banner button {
-  color: #fff;
+  color: black;
   font-weight: 700;
   font-size: 20px;
   margin-top: 60px;
@@ -264,6 +264,93 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .txt-rotate>.wrap {
   border-right: 0.08em solid #666;
+}
+.banner button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.banner button.learn-more {
+  width: 13rem;
+  height: auto;
+}
+
+.banner button.learn-more .circle {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 2.5rem;
+  height: 3rem;
+  background: rebeccapurple;
+  border-radius: 1.625rem;
+}
+
+.banner button.learn-more .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #fff;
+}
+
+.banner button.learn-more .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+.banner button.learn-more .circle .icon.arrow::before {
+  position: absolute;
+  content: "";
+  top: -0.29rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid #fff;
+  border-right: 0.125rem solid #fff;
+  transform: rotate(45deg);
+}
+
+.banner button.learn-more .button-text {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.75rem 0;
+  margin: 0 0 0 1.85rem;
+  color: white;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.banner button:hover .circle {
+  width: 100%;
+}
+
+.banner button:hover .circle .icon.arrow {
+  background: #fff;
+  transform: translate(1rem, 0);
+}
+
+.banner button:hover .button-text {
+  color: #fff;
 }
 /*Home css*/
 #Home {
@@ -373,9 +460,76 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   }
 }
 
-#Home button:active {
-  box-shadow: 0 0 0 0 transparent;
-  -webkit-transition: box-shadow 0.2s ease-in;
-  -moz-transition: box-shadow 0.2s ease-in;
-  transition: box-shadow 0.2s ease-in;
+.form-input{
+  width: 100%;
+  background: #01001d;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  color: white;
+  margin: 0 0 8px 0;
+  padding: 18px 26px;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  transition: 0.3s ease-in-out;
+}
+
+.form-input:focus{
+  background: rgba(255, 255, 255, 1);
+  color: #121212;
+}
+
+.form-input::placeholder{
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.form-input:focus::placeholder{
+  color: #121212;
+  opacity: 0.8;
+}
+.title,.label{
+  color: black;
+}
+.model{
+  z-index: 9999;
+}
+.model .btn {
+  width: 6.5em;
+  height: 2.3em;
+  margin: 0.5em;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 0.625em;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.model button:hover {
+  color: black;
+}
+
+.model button:after {
+  content: "";
+  background: white;
+  position: absolute;
+  z-index: -1;
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(-45deg) scale(0, 1);
+  transition: all 0.5s;
+}
+
+.model button:hover:after {
+  transform: skewX(-45deg) scale(1, 1);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }

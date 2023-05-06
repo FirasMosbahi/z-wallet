@@ -1,10 +1,10 @@
-import React from 'react'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { useState,useEffect } from 'react';
+import React from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import { useState, useEffect } from "react";
 function NavBar(props) {
-  const [activeLink, setActiveLink] = useState('home');
+  const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => {
@@ -13,7 +13,7 @@ function NavBar(props) {
       } else {
         setScrolled(false);
       }
-    }
+    };
 
     window.addEventListener("scroll", onScroll);
 
@@ -21,10 +21,10 @@ function NavBar(props) {
   }, []);
   const onUpdateActiveLink = (value) => {
     setActiveLink(value);
-  }
-  
+  };
+
   return (
-    <Navbar expand="lg" className={scrolled ? "scrolled" : "" } >
+    <Navbar expand="lg" className={scrolled ? "scrolled" : ""}>
       <Container>
         <Navbar.Brand href="/">
           <h1>Z-WALLET</h1>
@@ -35,25 +35,37 @@ function NavBar(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <br />
-            <Nav.Link href="#home" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
+            <Nav.Link
+              href="#home"
+              className={
+                activeLink === "home" ? "active navbar-link" : "navbar-link"
+              }
+              onClick={() => onUpdateActiveLink("home")}
+            >
+              Home
+            </Nav.Link>
             <br />
-            <Nav.Link href="#history" className={activeLink === 'history' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('history')}>Transaction History</Nav.Link>
-            <br />
-            <Nav.Link href="#Contact" className={activeLink === 'Contact' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('Contact')}>Contact</Nav.Link>
+            <Nav.Link
+              href="#Contact"
+              className={
+                activeLink === "Contact" ? "active navbar-link" : "navbar-link"
+              }
+              onClick={() => onUpdateActiveLink("Contact")}
+            >
+              Contact
+            </Nav.Link>
             <br />
           </Nav>
           <br />
-          <Nav className=' navbar-text'>
-            <button className="vvd" onClick={props.connectHandler} >
-              <span>
-                 {props.connButtonText}
-              </span>
+          <Nav className=" navbar-text">
+            <button className="vvd" onClick={props.connectHandler}>
+              <span>{props.connButtonText}</span>
             </button>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;

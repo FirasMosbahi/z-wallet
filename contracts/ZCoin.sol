@@ -19,7 +19,7 @@ contract ZCoin is ERC20Capped, ERC20Burnable {
     uint256 _initialValue,
     uint256 _cappedAt,
     uint256 _rate
-  ) ERC20("Z-Token", "ZTK") ERC20Capped(cappedAt * (10**18)) {
+  ) ERC20("Z-Token", "ZTK") ERC20Capped(_cappedAt * (10**18)) {
     owner = payable(msg.sender);
     cappedAt = _cappedAt * (10**18);
     _mint(owner, _initialValue * (10**18));

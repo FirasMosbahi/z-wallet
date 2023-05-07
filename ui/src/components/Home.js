@@ -28,7 +28,6 @@ function Home(props) {
   const handleSendModalClose = () => {
     setShowSendModal(false);
   };
-
   return (
     <div
       id="Home"
@@ -74,7 +73,7 @@ function Home(props) {
                 </div>
               </div>
               <div className="balance-info mt-5 mb-5">
-                <p className="card-text text-center">
+                <div className="card-text text-center">
                   <span className="balance fw-bold fs-2">
                     {props.userBalance} ETH
                   </span>
@@ -93,7 +92,7 @@ function Home(props) {
                       </button>
                     </div>
                   </div>
-                </p>
+                </div>
               </div>
               <div className="action-buttons row justify-content-center mt-5">
                 <div className="col-md-3 col-sm-6 mb-3">
@@ -102,7 +101,7 @@ function Home(props) {
                   </button>
                 </div>
                 <div className="col-md-3 col-sm-6 mb-3">
-                  <button className="rounded-pill w-100">Receive</button>
+                  <button className="rounded-pill w-100" >Receive</button>
                 </div>
                 <div className="col-md-3 col-sm-6 mb-3">
                   <button className=" rounded-pill w-100">History</button>

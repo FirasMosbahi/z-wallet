@@ -5,7 +5,6 @@ import { ethers } from 'ethers'
 import { Banner } from './components/Banner';
 import { networks } from './networks';
 import Home from './components/Home';
-
 function App() {
   const [defaulterrorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
@@ -14,7 +13,6 @@ function App() {
   const [isConnected, setIsConnected] = useState(false)
   const [accountName, setAccountName] = useState(null);
   const [networkName, setNetworkName] = useState(null)
-
   const ConnWalletHandler = () => {
     if (window.ethereum) {
       window.ethereum.request({ method: 'eth_requestAccounts' }).then(result => {
@@ -30,6 +28,7 @@ function App() {
       }
     }
   }
+
 
   const accountChangeHandler = (newAccount) => {
     getNetworkId()
@@ -61,7 +60,7 @@ function App() {
   return (
     <div className="App">
       <NavBar connectHandler={ConnWalletHandler} connButtonText={connButtonText} />
-      {isConnected ? <Home connectHandler={ConnWalletHandler}  userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} /> : <Banner />}
+      {isConnected ? <Home connectHandler={ConnWalletHandler} userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} /> : <Banner />}
     </div>
   );
 }

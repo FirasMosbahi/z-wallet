@@ -11,10 +11,8 @@ module.exports = async function(deployer) {
 
   // Deploy contracts
   await deployer.deploy(nft, "z-awesome-nfts", "z-nft");
-  const nftContract = await nft.deployed();
 
   await deployer.deploy(zCoin, zBlockReward, zInitialValue, zCappedAt, zRate);
-  const zCoinContract = await zCoin.deployed();
 
   await deployer.deploy(
     zWallet,
@@ -25,8 +23,4 @@ module.exports = async function(deployer) {
     mintCostETH,
     mintCostZTK
   );
-  const zWalletContract = await zWallet.deployed();
-  // Set the NFT and ZCoin contract addresses in ZWallet
-  await zWalletContract.setNFTContract(nftContract.address);
-  await zWalletContract.setZCoinContract(zCoinContract.address);
 };

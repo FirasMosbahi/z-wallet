@@ -26,7 +26,7 @@ const createImage = async (description) => {
   return [data, img];
 };
 
-const uploadImage = async (imageData, description) => {
+const uploadImage = async (imageData, imageDescription) => {
   // Create instance to NFT.Storage
   const nftstorage = new NFTStorage({
     token:
@@ -36,7 +36,7 @@ const uploadImage = async (imageData, description) => {
   const { ipnft } = await nftstorage.store({
     image: new File([imageData], "image.jpeg", { type: "image/jpeg" }),
     name: name,
-    description: description,
+    description: imageDescription,
   });
   // Save the URL
   const url = `https://ipfs.io/ipfs/${ipnft}/metadata.json`;

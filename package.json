@@ -15,15 +15,12 @@
     "node-fetch": "^3.3.1",
     "prettier": "^2.8.8",
     "react-bootstrap": "^2.7.4",
-<<<<<<< HEAD
     "truffle": "^5.8.4"
   },
   "devDependencies": {
     "chai": "^4.3.7"
-=======
     "truffle": "^5.8.4",
     "web3": "^1.9.0",
     "contracts":"file:./build/contracts"
->>>>>>> d2aa80c1e9682ddbd5b168e6c10bd4987da2dc34
   }
 }

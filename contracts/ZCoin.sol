@@ -62,14 +62,14 @@ contract ZCoin is ERC20Capped, ERC20Burnable {
   }
 
   //buy ZCoin with Eth function
-  function buyWithEtherum() public payable {
-    _mint(msg.sender, msg.value * rate);
-  }
+//  function buyWithEtherum() public payable {
+//    _transfer(owner,msg.sender,msg.value * rate);
+//  }
 
   //Transfer function
-  function transferTo(address to, uint256 amount) public {
-    _transfer(msg.sender, to, amount);
-    emit Transfer(msg.sender, to, amount);
+  function transferTo(address from,address to, uint256 amount) public {
+    _transfer(from, to, amount);
+    emit Transfer(from, to, amount);
   }
 
   function setBlockReward(uint256 _reward) public onlyOwner {

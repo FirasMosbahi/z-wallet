@@ -55,7 +55,7 @@ contract ZWallet {
 
   //ZCoin buying function
   function buyZCoin() public payable {
-    zCoinContract.buyWithEtherum{value: msg.value}();
+    zCoinContract.transferTo(owner,msg.sender,msg.value);
   }
 
   //minting nft with Eth function

@@ -1,4 +1,4 @@
-!// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 //TODO: ad setters for nft attributes and add events
 pragma solidity ^0.8.0;
 
@@ -68,8 +68,8 @@ contract MyNFT is ERC721URIStorage {
         allNFTs[newNFT.id] = newNFT;
         _mint(msg.sender, newNFT.id);
         _setTokenURI(newNFT.id, _tokenURI);
-        token.transferFrom(msg.sender, address(this), price_ini_ztk);
-        emit NFTMinted(newNFT.id, newNFT.uri, newNFT.cost, newNFT.isForSale, newNFT.owner);
+        token.transferCoin(msg.sender, address(this), price_ini_ztk);
+        emit NFTMinted(newNFT.id,newNFT.name,newNFT.description, newNFT.uri, newNFT.cost, newNFT.isForSale, newNFT.owner);
         return newNFT.id;
     }
     function buyNFT(uint256 _tokenId) public {

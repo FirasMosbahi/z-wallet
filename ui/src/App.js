@@ -5,8 +5,7 @@ import { ethers } from 'ethers'
 import { Banner } from './components/Banner';
 import { networks } from './networks';
 import Home from './components/Home';
-import NFTContractBuild from 'contracts/NFT.json'
-import Web3 from 'web3';
+
 function App() {
   const [defaulterrorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);

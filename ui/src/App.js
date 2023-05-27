@@ -6,8 +6,8 @@ import { Banner } from './components/Banner';
 import { networks } from './networks';
 import Home from './components/Home';
 import Web3 from 'web3'
-import NFTContractBuild from '../truffle/build/contracts/MyNFT.json';
-import ZcoinContractBuild from '../truffle/build/contracts/ZCoin.json';
+import NFTContractBuild from './abi/MyNFT.json';
+import ZcoinContractBuild from './abi/ZCoin.json';
 async function App() {
   const [defaulterrorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);

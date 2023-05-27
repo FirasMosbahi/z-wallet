@@ -8,7 +8,7 @@ import Home from './components/Home';
 import Web3 from 'web3'
 import NFTContractBuild from './abi/MyNFT.json';
 import ZcoinContractBuild from './abi/ZCoin.json';
-async function App() {
+function App() {
   const [defaulterrorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
@@ -16,13 +16,17 @@ async function App() {
   const [isConnected, setIsConnected] = useState(false)
   const [accountName, setAccountName] = useState(null);
   const [networkName, setNetworkName] = useState(null)
-  const ConnWalletHandler = () => {
+  const ConnWalletHandler = async () => {
     if (window.ethereum) {
       window.ethereum.request({ method: 'eth_requestAccounts' }).then(result => {
         accountChangeHandler(result[0])
         setConnButtonText("Wallet Connected")
         setIsConnected(true);
       })
+      const web3 = new Web3(window.ethereum);
+      const networkId = await web3.eth.net.getId();
+      const nftContract = new web3.eth.Contract(NFTContractBuild.abi, NFTContractBuild.networks[networkId].address);
+      const zcoinContract = new web3.eth.Contract(ZcoinContractBuild.abi, ZcoinContractBuild.networks[networkId].address);
     }
     else {
       const confirmDownload = window.confirm("You need to install MetaMask to use this wallet. Do you want to download it now?");
@@ -58,11 +62,8 @@ async function App() {
 
   window.ethereum.on('accountsChanged', accountChangeHandler);
   window.ethereum.on('chainChanged', chainChangeHandler);
-  const web3 = new Web3(window.ethereum);
-  const networkId = await web3.eth.net.getId();
-  const nftContract = new web3.eth.Contract(NFTContractBuild.abi,NFTContractBuild.networks[networkId].address);
-  const zcoinContract = new web3.eth.Contract(ZcoinContractBuild.abi,ZcoinContractBuild.networks[networkId].address);
-  
+
+
   return (
     <div className="App">
       <NavBar connectHandler={ConnWalletHandler} connButtonText={connButtonText} />

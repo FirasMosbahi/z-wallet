@@ -5,7 +5,10 @@ import { ethers } from 'ethers'
 import { Banner } from './components/Banner';
 import { networks } from './networks';
 import Home from './components/Home';
-function App() {
+import Web3 from 'web3'
+import NFTContractBuild from '../truffle/build/contracts/MyNFT.json';
+import ZcoinContractBuild from '../truffle/build/contracts/ZCoin.json';
+async function App() {
   const [defaulterrorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
@@ -55,7 +58,10 @@ function App() {
 
   window.ethereum.on('accountsChanged', accountChangeHandler);
   window.ethereum.on('chainChanged', chainChangeHandler);
-
+  const web3 = new Web3(window.ethereum);
+  const networkId = await web3.eth.net.getId();
+  const nftContract = new web3.eth.Contract(NFTContractBuild.abi,NFTContractBuild.networks[networkId].address);
+  const zcoinContract = new web3.eth.Contract(ZcoinContractBuild.abi,ZcoinContractBuild.networks[networkId].address);
   
   return (
     <div className="App">

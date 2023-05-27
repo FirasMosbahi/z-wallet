@@ -101,7 +101,7 @@ function Home(props) {
                   </button>
                 </div>
                 <div className="col-md-3 col-sm-6 mb-3">
-                  <button className="rounded-pill w-100" >Receive</button>
+                  <button className="rounded-pill w-100" onClick={props.BuyToken}>Buy</button>
                 </div>
                 <div className="col-md-3 col-sm-6 mb-3">
                   <button className=" rounded-pill w-100">History</button>

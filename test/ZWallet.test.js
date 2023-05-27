@@ -1,65 +1,56 @@
-const chai = require('chai');
-const assert = chai.assert;
-const expect = chai.expect;
+const { expect } = require("chai");
+const { assert } = require("chai");
+const web3 = require('web3');
+const BigNumber = web3.utils.BN;
+const ZCoin = artifacts.require('ZCoin');
 
-const ZWallet = artifacts.require('./ZWallet.sol');
-const NFT = artifacts.require('./NFT.sol');
-const ZCoin = artifacts.require('./ZCoin.sol');
-
-contract('ZWallet', (accounts) => {
-  let [owner, user, user2] = accounts;
-  let zWallet;
-  let nftContract;
-  let zCoinContract;
-  const mintCostWithEth = web3.utils.toWei('0.1', 'ether');
-  const mintCostWithZtk = web3.utils.toWei('10', 'ether');
+contract('ZCoin', async (accounts) => {
+  let zCoinInstance;
 
   before(async () => {
-    zWallet = await ZWallet.new(10, 10, 100, 1, mintCostWithEth, mintCostWithZtk);
-
+    zCoinInstance = await ZCoin.deployed();
   });
 
-  describe('Deployment', async () => {
-    it('should deploy the ZWallet contract', async () => {
-      assert.notEqual(zWallet.address, '');
-      assert.notEqual(zWallet.address, undefined);
-      assert.notEqual(zWallet.address, null);
-      assert.notEqual(zWallet.address, 0x0);
-      console.log(ZWallet.address);
-    });
-
-    /*it('should deploy the NFT contract', async () => {
-      assert.notEqual(nftContract.address, '');
-      assert.notEqual(nftContract.address, undefined);
-      assert.notEqual(nftContract.address, null);
-      assert.notEqual(nftContract.address, 0x0);
-    });
-
-    it('should deploy the ZCoin contract', async () => {
-      assert.notEqual(zCoinContract.address, '');
-      assert.notEqual(zCoinContract.address, undefined);
-      assert.notEqual(zCoinContract.address, null);
-      assert.notEqual(zCoinContract.address, 0x0);
-    });*/
-
-    it('should set the owner', async () => {
-      const contractOwner = await zWallet.owner();
-      assert.equal(contractOwner, owner);
-    });
+  it('should deploy ZCoin contract', async () => {
+    assert.ok(zCoinInstance.address);
   });
- 
-  describe('ZCoin buying', async () => {
-    it('should buy ZCoin with Ether', async () => {
-       owner=zWallet.owner();
-       zCoinContract=zWallet.zCoinContract;
-       console.log(zCoinContract);
-       await zWallet.buyZCoin({from:"0x3Fdd1274b5dfD6a5a054078f5a77C8114fF244fe",to:"0x3E8ea3741Fd597f29eb205F31Ee14A5aD4a07142",value: web3.utils.toWei("1", "ether")});
-      /* assert.strictEqual(
-        finalBalance.toString(),
-        initialBalance.add(web3.utils.toBN("1")).toString(),
-        "ZCoin balance was not increased by 1"
-      );*/
-    });
-  });
-  
+
+  it('should allow users to buy tokens', async () => {
+    const tokenPrice1 =await zCoinInstance.token_price;
+    console.log(tokenPrice1.toString());
+    const tokenPrice=new BigNumber(tokenPrice1).toNumber();
+   
+    const tokensToBuy = 10;
+    const totalCost = tokenPrice * tokensToBuy;
+
+
+    // Account 1 buys tokens
+    const account1 = accounts[1];
+    const initialAccount1Balance = await web3.eth.getBalance(account1);
+    const tx = await zCoinInstance.buy({ from: account1, value: totalCost });
+    const gasUsed = tx.receipt.gasUsed;
+    const txCost = gasUsed * (await web3.eth.getGasPrice());
+    const finalAccount1Balance = await web3.eth.getBalance(account1);
+
+    assert.equal(
+      finalAccount1Balance.toString(),
+      initialAccount1Balance
+        .minus(totalCost)
+        .minus(txCost)
+        .toString(),
+      'Account 1 balance should decrease by the total cost plus transaction fee'
+    );
+
+    assert.equal(
+      (await zCoinInstance.balanceOf(account1)).toString(),
+      tokensToBuy.toString(),
+      'Account 1 should receive the correct amount of tokens'
+    );
+
+    assert.equal(
+      (await zCoinInstance.balanceOf(zCoinInstance.address)).toString(),
+      (10**21 - tokensToBuy).toString(),
+      'ZCoin contract should have the correct remaining token supply'
+    );
+  })
 });

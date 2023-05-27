@@ -28,13 +28,6 @@ function Home(props) {
   const handleSendModalClose = () => {
     setShowSendModal(false);
   };
-  /*const mint=()=>{
-    props.minToken().then(tx=>{
-      console.log(tx);
-    }).catch(error=>{
-      console.log(error)
-    })
-  }*/
   return (
     <div
       id="Home"

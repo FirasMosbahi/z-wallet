@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Nav, Tab } from "react-bootstrap";
-import { SendModal } from "./SendModel";
+import { Container, Row, Col } from "react-bootstrap";
 function Home(props) {
   const [ethPrice, setEthPrice] = useState(null);
   async function getEthPriceInUSD() {
@@ -18,16 +17,9 @@ function Home(props) {
   }
   useEffect(() => {
     getEthPriceInUSD();
-  }, [props.userBalance]);
-  const [showSendModal, setShowSendModal] = useState(false);
+    props.getzcoinBalance()
+  }, [getEthPriceInUSD,]);
 
-  const handleSend = () => {
-    setShowSendModal(true);
-  };
-
-  const handleSendModalClose = () => {
-    setShowSendModal(false);
-  };
   return (
     <div
       id="Home"
@@ -80,13 +72,16 @@ function Home(props) {
                   <br />
                   <span className="usd-equivalent fs-5">${ethPrice}</span>
                   <br />
-                  <span className="balance fw-bold fs-2">ZTK</span>
+                  <span className="balance fw-bold fs-2">{props.ZcoinBalance} ZTK</span>
                   <br />
                   <div className="action-buttons row justify-content-center mt-1">
                     <div className="col-md-3 col-sm-6 mb-1 w-100">
                       <button
                         className="rounded-pill w-100"
-                        onClick={props.connectHandler}
+                        onClick={() => {
+                          props.connectHandler()
+                          props.getzcoinBalance()
+                        }}
                       >
                         Get Updated
                       </button>
@@ -95,21 +90,13 @@ function Home(props) {
                 </div>
               </div>
               <div className="action-buttons row justify-content-center mt-5">
-                <div className="col-md-3 col-sm-6 mb-3">
-                  <button className="rounded-pill w-100" onClick={handleSend}>
-                    Send
-                  </button>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-3">
+
+                <div className="col-md-6 col-sm-6 mb-3">
                   <button className="rounded-pill w-100" onClick={props.BuyToken}>Buy</button>
                 </div>
-                <div className="col-md-3 col-sm-6 mb-3">
-                  <button className=" rounded-pill w-100">History</button>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-3">
+                <div className="col-md-6 col-sm-6 mb-3">
                   <button className=" rounded-pill w-100">NFT</button>
                 </div>
-                <SendModal show={showSendModal} onHide={handleSendModalClose} />
               </div>
             </div>
           </Col>

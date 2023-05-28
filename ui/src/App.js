@@ -6,9 +6,9 @@ import { Banner } from './components/Banner';
 import { networks } from './networks';
 import Home from './components/Home';
 import Web3 from 'web3'
-import NFTContractBuild from './abi/MyNFT.json';
-import ZcoinContractBuild from './abi/ZCoin.json';
+import ZwalletContractBuild from './abi/ZWallet.json';
 
+let zwalletcontract;
 function App() {
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
@@ -16,9 +16,8 @@ function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [accountName, setAccountName] = useState(null);
   const [networkName, setNetworkName] = useState(null);
+  const [ZcoinBalance, setZcoinBalance] = useState(0);
   let isInitialized = false;
-  let nftContract;
-  let zcoinContract;
   let web3;
 
   const ConnWalletHandler = async () => {
@@ -29,10 +28,10 @@ function App() {
         setIsConnected(true);
       })
       web3 = new Web3(window.ethereum);
+      web3.eth.defaultAccount = defaultAccount;
       const networkId = await web3.eth.net.getId();
-      nftContract = new web3.eth.Contract(NFTContractBuild.abi, NFTContractBuild.networks[networkId].address);
-      zcoinContract = new web3.eth.Contract(ZcoinContractBuild.abi, ZcoinContractBuild.networks[networkId].address);
-      zcoinContract.options.address = defaultAccount; // Set the contract address
+      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0x107c07AdcfE2699Cf1fb91819ad167D5bd507Ed5');
+      zwalletcontract.options.address = defaultAccount; // Set the contract address
       isInitialized = true;
     } else {
       const confirmDownload = window.confirm("You need to install MetaMask to use this wallet. Do you want to download it now?");
@@ -50,16 +49,20 @@ function App() {
 
   const getNetworkId = () => {
     window.ethereum.request({ method: 'net_version' }).then(async id => {
-      console.log(id);
       setNetworkName(networks[id] || "ganache");
     });
   }
 
-  const getUserBalance = (address) => {
-    window.ethereum.request({ method: 'eth_getBalance', params: [address, 'latest'] }).then(balance => {
+  const getUserBalance = async (address) => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const balance = await provider.getBalance(address);
       setUserBalance(ethers.utils.formatEther(balance));
-    })
-  }
+    } catch (error) {
+      console.error("Error retrieving the user balance:", error);
+    }
+  };
+
 
   const chainChangeHandler = () => {
     window.location.reload();
@@ -73,9 +76,9 @@ function App() {
       if (!isInitialized) {
         await ConnWalletHandler();
       }
-      const amountToSend = Web3.utils.toWei("100", "ether");
+      const amountToSend = Web3.utils.toWei("1", "ether");
 
-      const result = await zcoinContract.methods.buy().send({
+      const result = await zwalletcontract.methods.buyZCoin().send({
         from: defaultAccount,
         value: amountToSend,
       });
@@ -85,11 +88,31 @@ function App() {
       console.error("Error buying tokens:", error);
     }
   };
+  const getZcoinBalance = async () => {
+    try {
+      if (!isInitialized) {
+        await ConnWalletHandler();
+      }
+      console.log("balance");
+
+      const balance = await web3.eth.call({
+        to: zwalletcontract.options.address,
+        data: zwalletcontract.methods.getZCoinBalance(defaultAccount).encodeABI()
+      });
+      console.log(balance);
+      const parsedBalance = web3.utils.toBN(balance).toString();
+      console.log("balance :", parsedBalance);
+      setZcoinBalance(parsedBalance);
+    } catch (error) {
+      console.error("Error retrieving the balance:", error);
+    }
+  };
+
 
   return (
     <div className="App">
       <NavBar connectHandler={ConnWalletHandler} connButtonText={connButtonText} />
-      {isConnected ? <Home connectHandler={ConnWalletHandler} userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} BuyToken={buyTokens} /> : <Banner />}
+      {isConnected ? <Home connectHandler={ConnWalletHandler} userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} BuyToken={buyTokens} getzcoinBalance={getZcoinBalance} ZcoinBalance={ZcoinBalance} /> : <Banner />}
     </div>
   );
 }

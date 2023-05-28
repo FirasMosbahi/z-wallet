@@ -1,7 +1,8 @@
 var nft = artifacts.require("./MyNFT.sol");
 var zCoin=artifacts.require("./ZCoin.sol");
 module.exports = async function(deployer) {
- await deployer.deploy(zCoin);
- const zCoinInstance = await zCoin.deployed();
- await deployer.deploy(nft,zCoinInstance.address);
+    const tokenPrice = 100; // Set your desired token price
+  const initialSupply = 100000000; // Set your desired initial suppl
+ await deployer.deploy(zCoin,tokenPrice,initialSupply);
+ await deployer.deploy(nft);
 };

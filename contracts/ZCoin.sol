@@ -2,28 +2,31 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract ZCoin is ERC20 {
-    uint256 public token_price = 100; // Set your desired token price
-    uint256 public supply = 10*50;
-    event test(uint256 value);
-    event ZCoinSold(address seller,uint256 amount);
+    address payable owner;
+    uint256 public tokenPrice; // Set your desired token price
+    event ReceivedEth(address indexed sender, uint256 amount);
+    event ZCoinTransfer(address sender,address receiver,uint256 amount);
 
-    constructor() ERC20("ZToken", "ZTK") {
-        _mint(address(this), supply);
+    constructor(uint256 _tokenPrice, uint256 _initialSupply) ERC20("ZToken", "ZTK") {
+        tokenPrice = _tokenPrice;
+        _mint(address(this), _initialSupply);
     }
 
-    function buy() public payable {
-        uint256 tokensToBuy = msg.value/token_price;
-        require(
-            supply > tokensToBuy,
-            "Not enough tokens available"
-        );
-        _transfer(address(this), msg.sender, tokensToBuy);
-        supply -= tokensToBuy;
-        emit ZCoinSold(msg.sender, tokensToBuy);
+    fallback() external payable {
+        emit ReceivedEth(msg.sender, msg.value);
     }
-    function transferCoin(address from,address to,uint256 amount) public{
+
+    receive() external payable {
+        emit ReceivedEth(msg.sender, msg.value);
+    }
+    function getBalance(address account) public view returns (uint256){
+        return balanceOf(account);
+    }
+    function transferZCoin(address from,address to, uint256 amount) public returns (bool) {
         _transfer(from, to, amount);
+        return true;
     }
 }

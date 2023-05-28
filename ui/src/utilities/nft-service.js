@@ -1,7 +1,7 @@
-import { axios } from "axios";
+import axios from "axios";
 import { NFTStorage, File } from "nft.storage";
 import { Buffer } from "buffer";
-const createImage = async (description) => {
+export const createImage = async (description) => {
   // You can replace this with different model API's
   const URL = `https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2`;
   // Send the request
@@ -26,7 +26,7 @@ const createImage = async (description) => {
   return [data, img];
 };
 
-const uploadImage = async (imageData, imageDescription) => {
+export const uploadImage = async (imageData, imageDescription, imageName) => {
   // Create instance to NFT.Storage
   const nftstorage = new NFTStorage({
     token:
@@ -35,11 +35,10 @@ const uploadImage = async (imageData, imageDescription) => {
   // Send request to store image
   const { ipnft } = await nftstorage.store({
     image: new File([imageData], "image.jpeg", { type: "image/jpeg" }),
-    name: name,
+    name: imageName,
     description: imageDescription,
   });
   // Save the URL
   const url = `https://ipfs.io/ipfs/${ipnft}/metadata.json`;
   return url;
 };
-const mintNFT = async (provider, contract, url) => {};

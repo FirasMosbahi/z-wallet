@@ -1,9 +1,13 @@
 import { ethers } from "ethers";
 import Web3 from "web3";
-import abi from "../contracts-config/zwallet-abi.json";
-const zWalledContractConnect = async (nftContractAddress) => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const network = await provider.getNetwork();
-  const zWallet = new ethers.Contract(nftContractAddress, abi, provider);
-  return [provider, zWallet];
+import zwalletAbi from "../abi/ZWallet.json";
+export const zWalledContractConnect = async (account) => {
+  let web3 = new Web3(window.ethereum);
+  const networkId = await web3.eth.net.getId();
+  const zWalletContract = new web3.eth.Contract(
+    zwalletAbi.abi,
+    zwalletAbi.networks[networkId].address
+  );
+  zWalletContract.options.address = account;
+  return zWalletContract;
 };

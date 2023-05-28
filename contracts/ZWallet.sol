@@ -51,7 +51,7 @@ contract ZWallet {
         return zCoinContract.getBalance(account);
     }
     function transferZCoin(address from,address to, uint256 amount) public {
-        zCoinContract.transferZCoin(from,to,balance);
+        zCoinContract.transferZCoin(from,to,amount);
     }
     function buyZCoin() public payable {
         uint256 tokensToBuy = msg.value * zCoinContract.tokenPrice();

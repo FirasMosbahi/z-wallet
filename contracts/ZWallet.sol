@@ -47,7 +47,12 @@ contract ZWallet {
         nftMintCostInWei = _nftMintCostInWei;
         nftMintCostInZTK = _nftMintCostInZTK;
     }
-
+    function getZCoinBalance(address account) public view returns(uint256){
+        return zCoinContract.getBalance(account);
+    }
+    function transferZCoin(address from,address to, uint256 amount) public {
+        zCoinContract.transferZCoin(from,to,balance);
+    }
     function buyZCoin() public payable {
         uint256 tokensToBuy = msg.value * zCoinContract.tokenPrice();
         require(

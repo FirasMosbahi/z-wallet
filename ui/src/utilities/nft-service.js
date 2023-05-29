@@ -34,7 +34,7 @@ export const uploadImage = async (imageData, imageDescription, imageName) => {
   });
   // Send request to store image
   const { ipnft } = await nftstorage.store({
-    image: new File([imageData], "image.jpeg", { type: "image/jpeg" }),
+    image: new Blob([imageData], { type: 'image/png' }),
     name: imageName,
     description: imageDescription,
   });
@@ -42,3 +42,18 @@ export const uploadImage = async (imageData, imageDescription, imageName) => {
   const url = `https://ipfs.io/ipfs/${ipnft}/metadata.json`;
   return url;
 };
+export async function getURL(url)  {
+
+  // Fetch the metadata JSON file
+  axios.get(url)
+    .then(response => {
+      const metadata = response.data;
+      const imageUrl = metadata.image;
+      console.log(imageUrl);
+      return imageUrl;
+    })
+    .catch(error => {
+      console.error('Error fetching metadata:', error);
+
+    });
+}

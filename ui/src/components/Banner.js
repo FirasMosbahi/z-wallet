@@ -54,7 +54,7 @@ export const Banner = () => {
               Our Walet is a secure and user-friendly cryptocurrency wallet that
               allows you to manage your digital assets with ease
             </p>
-            <button className="learn-more align-items-center">
+            <button className="learn-more align-items-center bannerBtn">
               <span className="circle" aria-hidden="true">
                 <span className="icon arrow"></span>
               </span>

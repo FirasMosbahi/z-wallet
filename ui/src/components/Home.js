@@ -108,7 +108,7 @@ function Home(props) {
                 <div className="col-md-6 col-sm-6 mb-3">
                   <button className="rounded-pill w-100" onClick={handlenft}>NFT</button>
                 </div>
-                <NftScreen show={nftModal} onHide={handlenftModalClose} />
+                <NftScreen show={nftModal} onHide={handlenftModalClose} getNFT={props.getNFT}/>
               </div>
             </div>
           </Col>
@@ -118,7 +118,7 @@ function Home(props) {
           </Col>
         </Row>
       </Container>
-      <CreateNftScreen />
+      <CreateNftScreen createNFTHandler = {props.mintNFTHandler} />
     </div>
   );
 }

@@ -223,7 +223,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   width: 96%;
 }
 
-.banner button {
+.bannerBtn {
   color: black;
   font-weight: 700;
   font-size: 20px;
@@ -232,7 +232,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   align-items: center;
 }
 
-.banner button svg {
+.bannerBtn svg {
   font-size: 25px;
   margin-left: 10px;
   transition: 0.3s ease-in-out;
@@ -243,7 +243,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-radius: 50%;
 }
 
-.banner button:hover svg {
+.bannerBtn:hover svg {
   margin-left: 25px;
 }
 
@@ -270,7 +270,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-right: 0.08em solid #666;
 }
 
-.banner button {
+.bannerBtn {
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -284,12 +284,12 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   font-family: inherit;
 }
 
-.banner button.learn-more {
+.bannerBtn.learn-more {
   width: 13rem;
   height: auto;
 }
 
-.banner button.learn-more .circle {
+.bannerBtn.learn-more .circle {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: relative;
   display: block;
@@ -300,7 +300,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-radius: 1.625rem;
 }
 
-.banner button.learn-more .circle .icon {
+.bannerBtn .learn-more .circle .icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -309,7 +309,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   background: #fff;
 }
 
-.banner button.learn-more .circle .icon.arrow {
+.bannerBtn .learn-more .circle .icon.arrow {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   left: 0.625rem;
   width: 1.125rem;
@@ -317,7 +317,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   background: none;
 }
 
-.banner button.learn-more .circle .icon.arrow::before {
+.bannerBtn .learn-more .circle .icon.arrow::before {
   position: absolute;
   content: "";
   top: -0.29rem;
@@ -329,7 +329,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   transform: rotate(45deg);
 }
 
-.banner button.learn-more .button-text {
+.bannerBtn.learn-more .button-text {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -345,16 +345,16 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   text-transform: uppercase;
 }
 
-.banner button:hover .circle {
+.bannerBtn:hover .circle {
   width: 100%;
 }
 
-.banner button:hover .circle .icon.arrow {
+.bannerBtn:hover .circle .icon.arrow {
   background: #fff;
   transform: translate(1rem, 0);
 }
 
-.banner button:hover .button-text {
+.bannerBtn:hover .button-text {
   color: #fff;
 }
 
@@ -506,6 +506,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .model {
   z-index: 9999;
+
+}
+
+.modal-backdrop {
+  background: none;
 }
 
 .model .btn {
@@ -513,7 +518,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   height: 2.3em;
   margin: 0.5em;
   background: black;
-  color: white;
+  color: transparent;
   border: none;
   border-radius: 0.625em;
   font-size: 20px;
@@ -524,28 +529,9 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   overflow: hidden;
 }
 
-.model button:hover {
-  color: black;
-}
 
-.model button:after {
-  content: "";
-  background: white;
-  position: absolute;
-  z-index: -1;
-  left: -20%;
-  right: -20%;
-  top: 0;
-  bottom: 0;
-  transform: skewX(-45deg) scale(0, 1);
-  transition: all 0.5s;
-}
 
-.model button:hover:after {
-  transform: skewX(-45deg) scale(1, 1);
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
+
 
 .skill {
   padding: 0 0 50px 0;
@@ -582,4 +568,65 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .skill-slider .item img {
   width: 50%;
   margin: 0 auto 15px auto;
+}
+
+.cardNft {
+  width: 500px;
+  height: 490px;
+  background: #3405a3;
+  border-radius: 8px;
+  box-shadow: 1px 5px 60px 0px #100a886b;
+  margin: auto;
+}
+
+.cardNft .card-border-top {
+  width: 60%;
+  height: 3%;
+  background: #6b64f3;
+  margin: auto;
+  border-radius: 0px 0px 15px 15px;
+}
+
+.cardNft span {
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+}
+
+.cardNft .job {
+  font-weight: 400;
+  color: white;
+  display: block;
+  text-align: center;
+  font-size: 12px;
+}
+
+.cardNft .img {
+  width: 220px;
+  height: 250px;
+  background: #6b64f3;
+  border-radius: 15px;
+  margin: auto;
+  margin-top: 25px;
+}
+
+.nftbutton {
+  padding: 8px 60px;
+  display: block;
+  margin: auto;
+  border-radius: 8px;
+  border: none;
+  margin-top: 5px;
+  background: #6b64f3;
+  color: white;
+  font-weight: 600;
+}
+
+.nftbutton:hover {
+  background: #534bf3;
+}
+.job{
+  margin: 0.5rem;
 }

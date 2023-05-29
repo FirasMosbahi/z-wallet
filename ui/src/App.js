@@ -30,8 +30,8 @@ function App() {
       web3 = new Web3(window.ethereum);
       web3.eth.defaultAccount = defaultAccount;
       const networkId = await web3.eth.net.getId();
-      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0xd5F564E7DC8cC20548a1970648c8c47A99E1A6a8');
-      zwalletcontract.options.address = '0xd5F564E7DC8cC20548a1970648c8c47A99E1A6a8'; // Set the contract address
+      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0x3EC657d01DFCB1717ca2C404b21c086dcab94858');
+      zwalletcontract.options.address = '0x3EC657d01DFCB1717ca2C404b21c086dcab94858'; // Set the contract address
       isInitialized = true;
     } else {
       const confirmDownload = window.confirm("You need to install MetaMask to use this wallet. Do you want to download it now?");
@@ -102,12 +102,59 @@ function App() {
       console.error("Error retrieving the balance:", error);
     }
   };
+  const mintNFT = async (url, nftData) => {
+    if (!isInitialized) {
+      await ConnWalletHandler();
+    }
+    console.log(url);
+    console.log(nftData);
+    if (nftData.mintWithZTK) {
+      console.log("minting with ztk");
+      const id = await zwalletcontract.methods.mintNFTWithZToken(
+        url,
+        nftData.name,
+        nftData.description,
+        nftData.cost,
+        nftData.isForSale
+      ).send({ from: defaultAccount });
+      console.log("minted");
+      console.log(id);
+    }
 
+    else {
+      const amountToSend = Web3.utils.toWei("10000", "wei");
+      await zwalletcontract.methods
+        .mintNFTWithEth(
+          url,
+          nftData.name,
+          nftData.description,
+          nftData.cost,
+          nftData.isForSale
+        )
+        .send({
+          from: defaultAccount,
+          value: amountToSend,
+        });
+    }
+  }
+
+  const getNFTs = async () => {
+    if (!isInitialized) {
+      await ConnWalletHandler();
+    }
+    const nftsNumber = await zwalletcontract.methods.tokenCounter().call();
+    console.log(nftsNumber);
+    const id = Math.floor(Math.random() * nftsNumber )
+    console.log(id);
+    const nft = await zwalletcontract.methods.allNFTs(id).call();
+    console.log(nft);
+    return nft;
+  }
 
   return (
     <div className="App">
       <NavBar connectHandler={ConnWalletHandler} connButtonText={connButtonText} />
-      {isConnected ? <Home connectHandler={ConnWalletHandler} userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} BuyToken={buyTokens} getzcoinBalance={getZcoinBalance} ZcoinBalance={ZcoinBalance} /> : <Banner />}
+      {isConnected ? <Home getNFT={getNFTs} mintNFTHandler={mintNFT} connectHandler={ConnWalletHandler} userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} BuyToken={buyTokens} getzcoinBalance={getZcoinBalance} ZcoinBalance={ZcoinBalance} /> : <Banner />}
     </div>
   );
 }

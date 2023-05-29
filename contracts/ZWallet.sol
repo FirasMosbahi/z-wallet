@@ -104,39 +104,40 @@ contract ZWallet {
     }
 
     function mintNFTWithZToken(
-        string memory _tokenURI,
-        string memory _name,
-        string memory _description,
-        uint256 _cost,
-        bool _isForSale
-    ) public {
-        require(
-            zCoinContract.getBalance(msg.sender) >= nftMintCostInZTK,
-            "You need ZToken to mint NFT"
-        );
-        NFTData memory newNFT;
-        newNFT.id = tokenCounter;
-        newNFT.name = _name;
-        newNFT.description = _description;
-        newNFT.uri = _tokenURI;
-        newNFT.cost = _cost;
-        newNFT.isForSale = _isForSale;
-        newNFT.owner = msg.sender;
-        allNFTs[tokenCounter] = newNFT;
-        tokenCounter += 1;
-        allNFTs[newNFT.id] = newNFT;
-        nftContract.mintNFT(newNFT.id, newNFT.uri, msg.sender);
-        emit NFTMinted(
-            newNFT.id,
-            newNFT.name,
-            newNFT.description,
-            newNFT.uri,
-            newNFT.cost,
-            newNFT.isForSale,
-            newNFT.owner
-        );        
-        zCoinContract.transferZCoin(msg.sender, nftContractAddress, nftMintCostInZTK);
-    }
+    string memory _tokenURI,
+    string memory _name,
+    string memory _description,
+    uint256 _cost,
+    bool _isForSale
+) public returns(uint256){
+    require(
+        zCoinContract.getBalance(msg.sender) >= _cost,
+        "You need ZToken to mint NFT"
+    );
+    NFTData memory newNFT;
+    newNFT.id = tokenCounter;
+    newNFT.name = _name;
+    newNFT.description = _description;
+    newNFT.uri = _tokenURI;
+    newNFT.cost = _cost;
+    newNFT.isForSale = _isForSale;
+    newNFT.owner = msg.sender;
+    allNFTs[tokenCounter] = newNFT;
+    tokenCounter += 1;
+    nftContract.mintNFT(newNFT.id, newNFT.uri, msg.sender);
+    emit NFTMinted(
+        newNFT.id,
+        newNFT.name,
+        newNFT.description,
+        newNFT.uri,
+        newNFT.cost,
+        newNFT.isForSale,
+        newNFT.owner
+    );        
+    zCoinContract.transferZCoin(msg.sender, nftContractAddress, _cost);
+    return newNFT.id;
+}
+
     function transferNFT(uint256 _tokenId) public {
         NFTData storage nft = allNFTs[_tokenId];
         require(nft.isForSale, "NFT is not for sale");

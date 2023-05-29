@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import Spinner from "react-bootstrap/Spinner";
 import "./create-nft.css";
 import { createImage, uploadImage } from "../utilities/nft-service";
-import { zWalledContractConnect } from "../utilities/contract-connect";
 import Web3 from "web3";
 
 export default function CreateNftScreen(props) {
@@ -18,15 +17,8 @@ export default function CreateNftScreen(props) {
     isForSale: null,
     mintWithZTK: null,
   });
-  let zwalletContract;
   let nftImageData;
   let [nftImage, setNftImage] = React.useState(null);
-  React.useEffect(() => {
-    const connect = async () => {
-      zwalletContract = await zWalledContractConnect(props.user);
-    };
-    connect();
-  }, []);
   const handleInputChange = async (e) => {
     const { name, value, type, checked } = e.target;
     const inputValue =
@@ -63,29 +55,7 @@ export default function CreateNftScreen(props) {
       formData.name
     );
     setStatus("minting NFT");
-    if (formData.mintWithZTK === true) {
-      await zwalletContract.methods.mintNFTWithZToken(
-        url,
-        formData.name,
-        formData.description,
-        formData.cost,
-        formData.isForSale
-      );
-    } else {
-      const amountToSend = Web3.utils.toWei("10000", "wei");
-      await zwalletContract.methods
-        .mintNFTWithEth(
-          url,
-          formData.name,
-          formData.description,
-          formData.cost,
-          formData.isForSale
-        )
-        .send({
-          from: props.user,
-          value: amountToSend,
-        });
-    }
+    await props.createNFTHandler(url,formData);
     setStatus("NFT minted successfuly");
   };
   return (

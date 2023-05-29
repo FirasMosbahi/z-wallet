@@ -32,19 +32,20 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-body{
-    font-weight: 400;
-      overflow-x: hidden;
-      position: relative;
-      background-color: #121212 !important;
-      color: #fff !important;
-      font-family: 'Centra', sans-serif !important;
-    
+body {
+  font-weight: 400;
+  overflow-x: hidden;
+  position: relative;
+  background-color: #121212 !important;
+  color: #fff !important;
+  font-family: 'Centra', sans-serif !important;
+
 }
 
 
@@ -57,10 +58,12 @@ nav.navbar {
   z-index: 9998;
   transition: 0.32s ease-in-out;
 }
-h1{
+
+h1 {
   color: white;
   font-weight: 900;
 }
+
 nav.navbar.scrolled {
   padding: 0px 0;
   background-color: #121212;
@@ -88,6 +91,7 @@ span.navbar-text {
   display: flex;
   align-items: center;
 }
+
 .navbar-text button {
   font-weight: 700;
   color: #fff;
@@ -181,7 +185,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-color: transparent;
 }
 
-/* Banner Css */ 
+/* Banner Css */
 .banner {
   margin-top: 0;
   padding: 160px 0 100px 0;
@@ -265,6 +269,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .txt-rotate>.wrap {
   border-right: 0.08em solid #666;
 }
+
 .banner button {
   position: relative;
   display: inline-block;
@@ -352,15 +357,17 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .banner button:hover .button-text {
   color: #fff;
 }
+
 /*Home css*/
 #Home {
   margin-top: 0;
-    padding: 160px 0 100px 0;
-    background-image: url('./assets/img/banner_bg.jpg');
-    background-position: top center;
-    background-size: contain;
-    background-repeat: no-repeat;
+  padding: 160px 0 100px 0;
+  background-image: url('./assets/img/banner_bg.jpg');
+  background-position: top center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
+
 #Home svg {
   border-radius: 50%;
 }
@@ -387,13 +394,15 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     transform: translateY(-20px);
   }
 }
-#Home .card_info{
-  background: linear-gradient(to bottom, #0b002d 20%, #381fdb 60%,#6a68fc );
+
+#Home .card_info {
+  background: linear-gradient(to bottom, #0b002d 20%, #381fdb 60%, #6a68fc);
   width: 100%;
   color: #F5F5F5;
   font-weight: 900;
   border-radius: 30px;
 }
+
 #Home button {
   position: relative;
   padding: 10px 20px;
@@ -460,7 +469,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   }
 }
 
-.form-input{
+.form-input {
   width: 100%;
   background: #01001d;
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -474,27 +483,31 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   transition: 0.3s ease-in-out;
 }
 
-.form-input:focus{
+.form-input:focus {
   background: rgba(255, 255, 255, 1);
   color: #121212;
 }
 
-.form-input::placeholder{
+.form-input::placeholder {
   font-size: 16px;
   font-weight: 400;
   color: #fff;
 }
 
-.form-input:focus::placeholder{
+.form-input:focus::placeholder {
   color: #121212;
   opacity: 0.8;
 }
-.title,.label{
+
+.title,
+.label {
   color: black;
 }
-.model{
+
+.model {
   z-index: 9999;
 }
+
 .model .btn {
   width: 6.5em;
   height: 2.3em;
@@ -532,4 +545,41 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   transform: skewX(-45deg) scale(1, 1);
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
+}
+
+.skill {
+  padding: 0 0 50px 0;
+  position: relative;
+}
+
+.skill-bx {
+  background: #151515;
+  border-radius: 64px;
+  text-align: center;
+  padding: 100px 30px;
+  margin-top: 10px;
+}
+
+.skill h2 {
+  font-size: 45px;
+  font-weight: 700;
+}
+
+.skill p {
+  color: #B8B8B8;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  line-height: 1.5em;
+  margin: 14px 0 75px 0;
+}
+
+.skill-slider {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.skill-slider .item img {
+  width: 50%;
+  margin: 0 auto 15px auto;
 }

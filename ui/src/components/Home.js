@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from 'react-router-dom';
+import CreateNftScreen from "../screens/create-nft";
+import NftScreen from '../components/nftScreen'
 function Home(props) {
   const [ethPrice, setEthPrice] = useState(null);
+  const [nftModal, setnftModal] = useState(false);
+
   async function getEthPriceInUSD() {
     try {
       const response = await fetch(
@@ -19,7 +24,13 @@ function Home(props) {
     getEthPriceInUSD();
     props.getzcoinBalance()
   }, [getEthPriceInUSD,]);
+  const handlenft = () => {
+    setnftModal(true);
+  };
 
+  const handlenftModalClose = () => {
+    setnftModal(false);
+  };
   return (
     <div
       id="Home"
@@ -95,8 +106,9 @@ function Home(props) {
                   <button className="rounded-pill w-100" onClick={props.BuyToken}>Buy</button>
                 </div>
                 <div className="col-md-6 col-sm-6 mb-3">
-                  <button className=" rounded-pill w-100">NFT</button>
+                  <button className="rounded-pill w-100" onClick={handlenft}>NFT</button>
                 </div>
+                <NftScreen show={nftModal} onHide={handlenftModalClose} />
               </div>
             </div>
           </Col>
@@ -106,6 +118,7 @@ function Home(props) {
           </Col>
         </Row>
       </Container>
+      <CreateNftScreen />
     </div>
   );
 }

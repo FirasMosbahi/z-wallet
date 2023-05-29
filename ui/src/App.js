@@ -30,7 +30,7 @@ function App() {
       web3 = new Web3(window.ethereum);
       web3.eth.defaultAccount = defaultAccount;
       const networkId = await web3.eth.net.getId();
-      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0x107c07AdcfE2699Cf1fb91819ad167D5bd507Ed5');
+      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, defaultAccount);
       zwalletcontract.options.address = defaultAccount; // Set the contract address
       isInitialized = true;
     } else {

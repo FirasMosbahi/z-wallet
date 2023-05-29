@@ -97,7 +97,6 @@ export default function CreateNftScreen(props) {
         </p>
         <div className="inputs">
           <input
-            placeholder="enter the nft description"
             type="text"
             value={formData.name}
             name="name"
@@ -105,6 +104,7 @@ export default function CreateNftScreen(props) {
             onChange={handleInputChange}
           />
           <input
+
             type="text"
             value={formData.description}
             name="description"
@@ -151,7 +151,7 @@ export default function CreateNftScreen(props) {
           </Button>
         </div>
       </form>
-      <div className="image-container">
+      <div className="image-container ">
         <div className="image">
           {nftImage ? (
             <img src={nftImage} alt="AI generated image" />

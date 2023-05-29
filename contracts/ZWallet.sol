@@ -54,7 +54,7 @@ contract ZWallet {
         zCoinContract.transferZCoin(from,to,amount);
     }
     function buyZCoin() public payable {
-        uint256 tokensToBuy = msg.value * zCoinContract.tokenPrice();
+        uint256 tokensToBuy = (msg.value * zCoinContract.tokenPrice()) / 1 ether;
         require(
             zCoinContract.getBalance(zCoinContractAddress) >= tokensToBuy,
             "Not enough tokens available"

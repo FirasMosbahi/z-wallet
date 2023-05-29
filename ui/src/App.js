@@ -22,16 +22,16 @@ function App() {
 
   const ConnWalletHandler = async () => {
     if (window.ethereum) {
-      window.ethereum.request({ method: 'eth_requestAccounts' }).then(result => {
-        accountChangeHandler(result[0]);
-        setConnButtonText("Wallet Connected");
-        setIsConnected(true);
-      })
+      const result = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      accountChangeHandler(result[0]);
+      setConnButtonText("Wallet Connected");
+      setIsConnected(true);
+
       web3 = new Web3(window.ethereum);
       web3.eth.defaultAccount = defaultAccount;
       const networkId = await web3.eth.net.getId();
-      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, defaultAccount);
-      zwalletcontract.options.address = defaultAccount; // Set the contract address
+      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0xd5F564E7DC8cC20548a1970648c8c47A99E1A6a8');
+      zwalletcontract.options.address = '0xd5F564E7DC8cC20548a1970648c8c47A99E1A6a8'; // Set the contract address
       isInitialized = true;
     } else {
       const confirmDownload = window.confirm("You need to install MetaMask to use this wallet. Do you want to download it now?");
@@ -88,20 +88,15 @@ function App() {
       console.error("Error buying tokens:", error);
     }
   };
+
   const getZcoinBalance = async () => {
     try {
       if (!isInitialized) {
         await ConnWalletHandler();
       }
-      console.log("balance");
 
-      const balance = await web3.eth.call({
-        to: zwalletcontract.options.address,
-        data: zwalletcontract.methods.getZCoinBalance(defaultAccount).encodeABI()
-      });
-      console.log(balance);
+      const balance = await zwalletcontract.methods.getZCoinBalance(defaultAccount).call();
       const parsedBalance = web3.utils.toBN(balance).toString();
-      console.log("balance :", parsedBalance);
       setZcoinBalance(parsedBalance);
     } catch (error) {
       console.error("Error retrieving the balance:", error);

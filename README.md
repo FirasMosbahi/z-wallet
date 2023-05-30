@@ -25,17 +25,16 @@ of smart contract standards ERC20 and ERC721, which manage our token ZToken and 
 - Web3.js (version 1.8.2)
 - Metamask browser extension
 ## Installation :
-# 1. Clone the repository:
-'''shell
+### 1. Clone the repository:
 git clone https://github.com/FirasMosbahi/z-wallet.git
-# 2.Install the dependencies:
+### 2.Install the dependencies:
 npm install
 cd ui
 npm install
-# 3.Compile and migrate the smart contracts:
+### 3.Compile and migrate the smart contracts:
 truffle compile 
 truffle migrate
-# 4.Start the development server
+### 4.Start the development server
 cd ui
 npm run start
 

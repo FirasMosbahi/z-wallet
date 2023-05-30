@@ -44,7 +44,7 @@ contract ZWallet {
         zCoinContract = ZCoin(_zCoinAddress);
         nftContractAddress = _nftContractAddress;
         nftContract = MyNFT(_nftContractAddress);
-        nftMintCostInWei = _nftMintCostInWei;
+        nftMintCostInWei = _nftMintCostInWei * (10**18);
         nftMintCostInZTK = _nftMintCostInZTK;
     }
     function getZCoinBalance(address account) public view returns(uint256){
@@ -111,7 +111,7 @@ contract ZWallet {
     bool _isForSale
 ) public returns(uint256){
     require(
-        zCoinContract.getBalance(msg.sender) >= _cost,
+        zCoinContract.getBalance(msg.sender) >= nftMintCostInZTK,
         "You need ZToken to mint NFT"
     );
     NFTData memory newNFT;
@@ -134,7 +134,7 @@ contract ZWallet {
         newNFT.isForSale,
         newNFT.owner
     );        
-    zCoinContract.transferZCoin(msg.sender, nftContractAddress, _cost);
+    zCoinContract.transferZCoin(msg.sender, nftContractAddress, nftMintCostInZTK);
     return newNFT.id;
 }
 

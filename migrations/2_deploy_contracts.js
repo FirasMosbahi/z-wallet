@@ -9,7 +9,7 @@ module.exports = async function (deployer) {
       ZWallet,
       ZCoin.address,
       MyNFT.address,
-      10000, // Set your desired mint cost in Wei
-      10 // Set your desired mint cost in ZTK
+      1, // Set your desired mint cost in ETH
+      100 // Set your desired mint cost in ZTK
     ));
 };

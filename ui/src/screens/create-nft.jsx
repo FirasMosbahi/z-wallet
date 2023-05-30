@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Spinner from "react-bootstrap/Spinner";
 import "./create-nft.css";
-import { createImage, uploadImage , getURL} from "../utilities/nft-service";
+import { createImage, uploadImage, getURL } from "../utilities/nft-service";
 import Web3 from "web3";
 
 export default function CreateNftScreen(props) {
@@ -55,7 +55,7 @@ export default function CreateNftScreen(props) {
       formData.name
     );
     setStatus("minting NFT");
-    await props.createNFTHandler(url,formData);
+    await props.createNFTHandler(url, formData);
     setStatus("NFT minted successfuly");
   };
   return (
@@ -95,7 +95,7 @@ export default function CreateNftScreen(props) {
               placeholder="make this NFT for sale"
               type="checkbox"
               name="isForSale"
-              onClick={() => setFormData((previousData) => {return {...previousData , isForSale : !previousData.isForSale}})}
+              onClick={() => setFormData((previousData) => { return { ...previousData, isForSale: !previousData.isForSale } })}
             />
           </div>
           <div className="radio">
@@ -122,9 +122,9 @@ export default function CreateNftScreen(props) {
         </div>
       </form>
       <div className="image-container ">
-        <div className="image">
+        <div className="imageNFt">
           {nftImage ? (
-            <img src={nftImage} alt="AI generated image" />
+            <img src={nftImage} alt="AI generated image" className="imageNFtimg" height={450} width={400} />
           ) : (
             <Spinner className="spinner" animation="border" role="status">
               <span className="visually-hidden">Loading...</span>

@@ -4,6 +4,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import axios from 'axios';
 import { getURL } from '../utilities/nft-service';
+import './nftScreen.css'
 
 function NftScreen(props) {
   const [nft, setNFT] = React.useState({});
@@ -33,27 +34,42 @@ function NftScreen(props) {
   }, []);
 
   return (
-    <Modal show={props.show} onHide={props.onHide} className="model">
-      <div className="cardNft">
-        <div className="card-border-top"></div>
-        <div className="img">
+
+    <div class="card">
+      <div class="infos">
+        <div class="image">
           {nftImg && (
             <img src={nftImg} alt="nft" height={250} width={250} className='nftimage' />
           )}
         </div>
+        <div class="info">
+          <div>
+            <p class="name">
+              {nft.name ?? 'loading...'}
+            </p>
+            <p class="function">
+              description: {nft.description ?? 'loading...'}
+            </p>
+          </div>
+          <div class="stats">
+            <p class="flex">
+              Cost
+              <span class="state-value">
+                {nft.cost ?? 'loading...'}
+              </span>
+            </p>
 
-        <span>Person</span>
-        <p className="job">name: {nft.name ?? 'loading...'}</p>
-        <p className="job">description: {nft.description ?? 'loading...'}</p>
-        <p className="job">cost: {nft.cost ?? 'loading...'}</p>
-        <button className="nftbutton" disabled={!nft.isForSale || props.user === nft.owner} onClick={buyNFT}>
-          Buy
-        </button>
-        <button className="nftbutton" onClick={initialise}>
-          Next NFT
-        </button>
+          </div>
+        </div>
       </div>
-    </Modal>
+      <button className="nftbutton request" disabled={!nft.isForSale || props.user === nft.owner} onClick={buyNFT}>
+        Buy
+      </button>
+      <button className="nftbutton request" onClick={initialise}>
+        Next NFT
+      </button>
+    </div>
+
   );
 }
 

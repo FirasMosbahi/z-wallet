@@ -3,9 +3,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import CreateNftScreen from "../screens/create-nft";
 import NftScreen from '../components/nftScreen'
+import BuyModel from '../components/buyModel'
+import './Home.css'
 function Home(props) {
   const [ethPrice, setEthPrice] = useState(null);
-  const [nftModal, setnftModal] = useState(false);
 
   async function getEthPriceInUSD() {
     try {
@@ -24,12 +25,13 @@ function Home(props) {
     getEthPriceInUSD();
     props.getzcoinBalance()
   }, [getEthPriceInUSD,]);
-  const handlenft = () => {
-    setnftModal(true);
-  };
+  const [showBuyModal, setShowBuyModal] = useState(false);
 
-  const handlenftModalClose = () => {
-    setnftModal(false);
+  const handleBuy = () => {
+    setShowBuyModal(true);
+  };
+  const handleBuyModalClose = () => {
+    setShowBuyModal(false);
   };
   return (
     <div
@@ -103,22 +105,20 @@ function Home(props) {
               <div className="action-buttons row justify-content-center mt-5">
 
                 <div className="col-md-6 col-sm-6 mb-3">
-                  <button className="rounded-pill w-100" onClick={props.BuyToken}>Buy</button>
+                  <button className="rounded-pill w-100" onClick={handleBuy}>Buy</button>
                 </div>
-                <div className="col-md-6 col-sm-6 mb-3">
-                  <button className="rounded-pill w-100" onClick={handlenft}>NFT</button>
-                </div>
-                <NftScreen show={nftModal} buyNFT={props.buyNFT} user={props.user} onHide={handlenftModalClose} getNFT={props.getNFT}/>
+                <BuyModel show={showBuyModal} onHide={handleBuyModalClose} onclick={props.BuyToken} />
               </div>
             </div>
           </Col>
 
           <Col xs={12} md={6} xl={5}>
-            <img src={require("../assets/img/logo_banner.png")} alt="header" />
+            <img src={require("../assets/img/logo_banner.png")} alt="header" className="img_banner" />
           </Col>
         </Row>
       </Container>
       <CreateNftScreen createNFTHandler = {props.mintNFTHandler} />
+      <NftScreen  buyNFT={props.buyNFT} user={props.user} getNFT={props.getNFT} />
     </div>
   );
 }

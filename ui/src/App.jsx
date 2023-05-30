@@ -31,8 +31,9 @@ function App() {
       web3 = new Web3(window.ethereum);
       web3.eth.defaultAccount = defaultAccount;
       const networkId = await web3.eth.net.getId();
-      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0x9584A5c6f8704714c49481153eb5e2795585E41C');
-      zwalletcontract.options.address = '0x9584A5c6f8704714c49481153eb5e2795585E41C'; // Set the contract address
+      const contractAddress = ZwalletContractBuild.networks[networkId].address;
+      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, contractAddress);
+      zwalletcontract.options.address = contractAddress; // Set the contract addres
       isInitialized = true;
     } else {
       const confirmDownload = window.confirm("You need to install MetaMask to use this wallet. Do you want to download it now?");
@@ -84,7 +85,6 @@ function App() {
         value: amountToSend,
       });
 
-      console.log("Tokens bought:", result);
     } catch (error) {
       console.error("Error buying tokens:", error);
     }
@@ -107,10 +107,7 @@ function App() {
     if (!isInitialized) {
       await ConnWalletHandler();
     }
-    console.log(url);
-    console.log(nftData);
     if (nftData.mintWithZTK) {
-      console.log("minting with ztk");
       const id = await zwalletcontract.methods.mintNFTWithZToken(
         url,
         nftData.name,
@@ -118,8 +115,6 @@ function App() {
         nftData.cost,
         nftData.isForSale
       ).send({ from: defaultAccount });
-      console.log("minted");
-      console.log(id);
     }
 
     else {
@@ -145,15 +140,9 @@ function App() {
       await ConnWalletHandler();
     }
     const nftsNumber = await zwalletcontract.methods.tokenCounter().call();
-    console.log(nftsNumber);
 
     const nft = await zwalletcontract.methods.allNFTs(id).call();
-    console.log(nftsNumber);
-    console.log(id);
-    console.log(10)
     setId((id + 1) % nftsNumber);
-    console.log(100)
-    console.log(nft);
     return nft;
   }
   const buyNFT = async (id) => {

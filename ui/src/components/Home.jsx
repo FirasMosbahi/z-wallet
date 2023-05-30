@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import CreateNftScreen from "../screens/create-nft";
-import NftScreen from '../components/nftScreen'
-import BuyModel from '../components/buyModel'
+import CreateNftScreen from "./create-nft";
+import NftScreen from './nftScreen'
+import BuyModel from './buyModel'
 import './Home.css'
 function Home(props) {
   const [ethPrice, setEthPrice] = useState(null);

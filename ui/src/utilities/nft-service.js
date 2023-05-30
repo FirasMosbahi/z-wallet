@@ -2,9 +2,7 @@ import axios from "axios";
 import { NFTStorage, File } from "nft.storage";
 import { Buffer } from "buffer";
 export const createImage = async (description) => {
-  // You can replace this with different model API's
   const URL = `https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2`;
-  // Send the request
   const response = await axios({
     url: URL,
     method: "POST",
@@ -27,30 +25,25 @@ export const createImage = async (description) => {
 };
 
 export const uploadImage = async (imageData, imageDescription, imageName) => {
-  // Create instance to NFT.Storage
   const nftstorage = new NFTStorage({
     token:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDE0YTM1ODMxNmE1MzRDNTkzNUMyNDgzNEQzOGNDM0E4ODA2M0MzNEEiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY4MzQ4NTIyMDQ0MCwibmFtZSI6Ik5GVF9TVE9SQUdFIn0.XLfI7A5T6MSkJR2tHklaG_AyIHnne2AJM25M_pwL400",
   });
-  // Send request to store image
   const { ipnft } = await nftstorage.store({
     image: new Blob([imageData], { type: 'image/png' }),
     name: imageName,
     description: imageDescription,
   });
-  // Save the URL
   const url = `https://ipfs.io/ipfs/${ipnft}/metadata.json`;
   return url;
 };
 export async function getURL(url)  {
   let imageDataURL;
 
-  // Fetch the metadata JSON file
   await axios.get(url)
     .then(response => {
       const metadata = response.data;
       const imageUrl = metadata.image;
-      console.log(imageUrl);
       imageDataURL = imageUrl;
     })
     .catch(error => {

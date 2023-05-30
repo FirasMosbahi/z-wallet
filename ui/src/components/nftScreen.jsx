@@ -13,8 +13,6 @@ function NftScreen(props) {
   const initialise = async () => {
     const data = await props.getNFT();
     const imageData = await getURL(data.uri);
-    console.log(data);
-    console.log(imageData);
     setNFT({ ...data });
 
     //  const response = await axios.get(data.uri);
@@ -22,11 +20,7 @@ function NftScreen(props) {
     setNftImg(imageData);
   };
   const buyNFT = async () => {
-    console.log("start buying");
-    console.log(nft.id);
     const test = await props.buyNFT(nft.id);
-    console.log(test);
-    console.log("nft bought successfuly");
   }
 
   React.useEffect(() => {

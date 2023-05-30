@@ -1,7 +1,5 @@
 # Z Wallet
-<p align="center">
-  <img src="ZwalletImage.png" width="350" title="ZWallet">
- </p>
+![Alt text](ZwalletImage.png?raw=true "ZWallet")
 Z Wallet is an innovative blockchain wallet designed to meet the growing demand for financial applications. This project is primarily concerned with the development and implementation
 of smart contract standards ERC20 and ERC721, which manage our token ZToken and our Minted NFTs .
 ## Features :

@@ -6,8 +6,8 @@
 Z Wallet is an innovative blockchain wallet designed to meet the growing demand for financial applications. This project is primarily concerned with the development and implementation
 of smart contract standards ERC20 and ERC721, which manage our token ZToken and our Minted NFTs .  
 
-## Features :
--Connect your account to ZWallet
+## Features :  
+- Connect your account to ZWallet
 - Buy the Ztoken with ETH
 - View wallet balances(ETH and ZTK)
 - Generate NFT with IA (Hugging Face API)

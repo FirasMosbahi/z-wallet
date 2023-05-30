@@ -14,12 +14,19 @@ function NftScreen(props) {
     const imageData = await getURL(data.uri);
     console.log(data);
     console.log(imageData);
-    setNFT({...data});
+    setNFT({ ...data });
 
-  //  const response = await axios.get(data.uri);
-  //  const imageData = await response.data;
+    //  const response = await axios.get(data.uri);
+    //  const imageData = await response.data;
     setNftImg(imageData);
   };
+  const buyNFT = async () => {
+    console.log("start buying");
+    console.log(nft.id);
+    const test = await props.buyNFT(nft.id);
+    console.log(test);
+    console.log("nft bought successfuly");
+  }
 
   React.useEffect(() => {
     initialise();
@@ -31,7 +38,7 @@ function NftScreen(props) {
         <div className="card-border-top"></div>
         <div className="img">
           {nftImg && (
-            <img src={nftImg} alt="nft" height={250} width={250} className='nftimage'/>
+            <img src={nftImg} alt="nft" height={250} width={250} className='nftimage' />
           )}
         </div>
 
@@ -39,7 +46,7 @@ function NftScreen(props) {
         <p className="job">name: {nft.name ?? 'loading...'}</p>
         <p className="job">description: {nft.description ?? 'loading...'}</p>
         <p className="job">cost: {nft.cost ?? 'loading...'}</p>
-        <button className="nftbutton" disabled={!nft.isForSale}>
+        <button className="nftbutton" disabled={!nft.isForSale || props.user === nft.owner} onClick={buyNFT}>
           Buy
         </button>
         <button className="nftbutton" onClick={initialise}>

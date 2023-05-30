@@ -138,7 +138,7 @@ contract ZWallet {
     return newNFT.id;
 }
 
-    function transferNFT(uint256 _tokenId) public {
+    function transferNFT(uint256 _tokenId) public returns (uint256){
         NFTData storage nft = allNFTs[_tokenId];
         require(nft.isForSale, "NFT is not for sale");
         require(msg.sender != nft.owner, "You are the owner of this NFT");
@@ -148,6 +148,7 @@ contract ZWallet {
         nftContract.transferNFT(_tokenId,msg.sender,previousOwner);
         zCoinContract.transferZCoin(msg.sender,previousOwner,nft.cost);
         emit NFTSold(_tokenId, previousOwner, msg.sender, nft.cost);
+        return(nft.id);
     }
     function setNFTName(uint256 _id, string memory _name) public {
         require(allNFTs[_id].owner == msg.sender , "only the owner can modify a nft property");

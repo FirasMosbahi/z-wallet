@@ -95,7 +95,7 @@ export default function CreateNftScreen(props) {
               placeholder="make this NFT for sale"
               type="checkbox"
               name="isForSale"
-              onChange={handleInputChange}
+              onClick={() => setFormData((previousData) => {return {...previousData , isForSale : !previousData.isForSale}})}
             />
           </div>
           <div className="radio">
@@ -105,7 +105,7 @@ export default function CreateNftScreen(props) {
               placeholder="mint this NFT with ZTK"
               type="checkbox"
               name="mintWithZTK"
-              onChange={handleInputChange}
+              onClick={() => setFormData((previousData) => { return { ...previousData, mintWithZTK: !previousData.mintWithZTK } })}
             />
           </div>
           <Button

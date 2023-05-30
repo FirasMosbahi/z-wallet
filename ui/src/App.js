@@ -30,8 +30,8 @@ function App() {
       web3 = new Web3(window.ethereum);
       web3.eth.defaultAccount = defaultAccount;
       const networkId = await web3.eth.net.getId();
-      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0x1518fC644A61eAf5876c9547257D7CbBE89E33a5');
-      zwalletcontract.options.address = '0x1518fC644A61eAf5876c9547257D7CbBE89E33a5'; // Set the contract address
+      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0x6BA6b2263DBBaa56cB4c18303CbdaCCDB891Ce66');
+      zwalletcontract.options.address = '0x6BA6b2263DBBaa56cB4c18303CbdaCCDB891Ce66'; // Set the contract address
       isInitialized = true;
     } else {
       const confirmDownload = window.confirm("You need to install MetaMask to use this wallet. Do you want to download it now?");
@@ -122,7 +122,7 @@ function App() {
     }
 
     else {
-      const amountToSend = Web3.utils.toWei("10000", "wei");
+      const amountToSend = Web3.utils.toWei("1", "ether");
       await zwalletcontract.methods
         .mintNFTWithEth(
           url,
@@ -150,11 +150,15 @@ function App() {
     console.log(nft);
     return nft;
   }
+  const buyNFT = async (id) => {
+    await zwalletcontract.methods.transferNFT(id).send({ from: defaultAccount });
+  };
+
 
   return (
     <div className="App">
       <NavBar connectHandler={ConnWalletHandler} connButtonText={connButtonText} />
-      {isConnected ? <Home getNFT={getNFTs} mintNFTHandler={mintNFT} connectHandler={ConnWalletHandler} userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} BuyToken={buyTokens} getzcoinBalance={getZcoinBalance} ZcoinBalance={ZcoinBalance} /> : <Banner />}
+      {isConnected ? <Home buyNFT={buyNFT} user={defaultAccount} getNFT={getNFTs} mintNFTHandler={mintNFT} connectHandler={ConnWalletHandler} userBalance={userBalance} userAddress={defaultAccount} networkname={networkName} BuyToken={buyTokens} getzcoinBalance={getZcoinBalance} ZcoinBalance={ZcoinBalance} /> : <Banner />}
     </div>
   );
 }

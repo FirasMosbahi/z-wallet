@@ -24468,8 +24468,8 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x3EC657d01DFCB1717ca2C404b21c086dcab94858",
-      "transactionHash": "0x1cd6ecdd6ac7ac37374d3308bd269104299bb309833acb03a9edf91e076fde72"
+      "address": "0x1518fC644A61eAf5876c9547257D7CbBE89E33a5",
+      "transactionHash": "0x04869fbc3da90079c139f39c21385a3de388bb628766aa89bc87351025a0b468"
     },
     "6284": "ARTIS sigma1",
     "10001": "Optimism Mainnet",
@@ -24496,7 +24496,7 @@
     "11297108109": "Smart Bitcoin (RBTC)"
   },
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-05-29T17:53:48.673Z",
+  "updatedAt": "2023-05-30T10:11:14.826Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

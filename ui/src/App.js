@@ -30,8 +30,8 @@ function App() {
       web3 = new Web3(window.ethereum);
       web3.eth.defaultAccount = defaultAccount;
       const networkId = await web3.eth.net.getId();
-      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0x3EC657d01DFCB1717ca2C404b21c086dcab94858');
-      zwalletcontract.options.address = '0x3EC657d01DFCB1717ca2C404b21c086dcab94858'; // Set the contract address
+      zwalletcontract = new web3.eth.Contract(ZwalletContractBuild.abi, '0x1518fC644A61eAf5876c9547257D7CbBE89E33a5');
+      zwalletcontract.options.address = '0x1518fC644A61eAf5876c9547257D7CbBE89E33a5'; // Set the contract address
       isInitialized = true;
     } else {
       const confirmDownload = window.confirm("You need to install MetaMask to use this wallet. Do you want to download it now?");
@@ -144,7 +144,7 @@ function App() {
     }
     const nftsNumber = await zwalletcontract.methods.tokenCounter().call();
     console.log(nftsNumber);
-    const id = Math.floor(Math.random() * nftsNumber )
+    const id = Math.floor(Math.random() * nftsNumber)
     console.log(id);
     const nft = await zwalletcontract.methods.allNFTs(id).call();
     console.log(nft);

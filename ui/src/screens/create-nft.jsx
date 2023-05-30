@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Spinner from "react-bootstrap/Spinner";
 import "./create-nft.css";
-import { createImage, uploadImage } from "../utilities/nft-service";
+import { createImage, uploadImage , getURL} from "../utilities/nft-service";
 import Web3 from "web3";
 
 export default function CreateNftScreen(props) {
@@ -34,9 +34,9 @@ export default function CreateNftScreen(props) {
     if (
       formData.name === null ||
       formData.description === null ||
-      formData.cost === null ||
-      formData.isForSale === null ||
-      formData.mintWithZTK === null
+      formData.cost === null //||
+      //formData.isForSale === null ||
+      //formData.mintWithZTK === null
     ) {
       setErrorMessage("please fill all form fields");
     } else {
@@ -50,7 +50,7 @@ export default function CreateNftScreen(props) {
   const mintNFT = async () => {
     setStatus("storing NFT in IPFS");
     const url = await uploadImage(
-      nftImageData,
+      nftImage,
       formData.description,
       formData.name
     );

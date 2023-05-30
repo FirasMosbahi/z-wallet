@@ -529,7 +529,9 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   overflow: hidden;
 }
 
-
+.model .nftimage {
+  padding-right:2rem ;
+}
 
 
 
@@ -627,6 +629,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .nftbutton:hover {
   background: #534bf3;
 }
-.job{
+
+.job {
   margin: 0.5rem;
 }

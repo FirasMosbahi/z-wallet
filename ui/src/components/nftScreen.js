@@ -11,11 +11,13 @@ function NftScreen(props) {
 
   const initialise = async () => {
     const data = await props.getNFT();
-    const url = await getURL(data.uri);
-    setNFT({...data , uri : url});
+    const imageData = await getURL(data.uri);
+    console.log(data);
+    console.log(imageData);
+    setNFT({...data});
 
-    const response = await axios.get(data.uri);
-    const imageData = await response.data;
+  //  const response = await axios.get(data.uri);
+  //  const imageData = await response.data;
     setNftImg(imageData);
   };
 
@@ -28,8 +30,8 @@ function NftScreen(props) {
       <div className="cardNft">
         <div className="card-border-top"></div>
         <div className="img">
-          {nftImg && nftImg.image && (
-            <img src={nft.uri} alt="nft" />
+          {nftImg && (
+            <img src={nftImg} alt="nft" height={250} width={250} className='nftimage'/>
           )}
         </div>
 

@@ -43,17 +43,22 @@ export const uploadImage = async (imageData, imageDescription, imageName) => {
   return url;
 };
 export async function getURL(url)  {
+  let imageDataURL;
 
   // Fetch the metadata JSON file
-  axios.get(url)
+  await axios.get(url)
     .then(response => {
       const metadata = response.data;
       const imageUrl = metadata.image;
       console.log(imageUrl);
-      return imageUrl;
+      imageDataURL = imageUrl;
     })
     .catch(error => {
       console.error('Error fetching metadata:', error);
 
     });
+  const ipfsGatewayUrl = imageDataURL.replace('ipfs://', 'https://ipfs.io/ipfs/');
+  const response = await axios.get(ipfsGatewayUrl);
+  const text = response.data;
+  return text;
 }

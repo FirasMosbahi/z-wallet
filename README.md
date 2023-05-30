@@ -28,14 +28,18 @@ of smart contract standards ERC20 and ERC721, which manage our token ZToken and 
 ### 1. Clone the repository:
 git clone https://github.com/FirasMosbahi/z-wallet.git
 ### 2.Install the dependencies:
-npm install
-cd ui
+npm install  
+
+cd ui  
+
 npm install
 ### 3.Compile and migrate the smart contracts:
-truffle compile 
+truffle compile  
+
 truffle migrate
 ### 4.Start the development server
-cd ui
+cd ui  
+
 npm run start
 
 ## Contributing: 

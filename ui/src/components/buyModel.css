@@ -1,0 +1,78 @@
+
+
+.model {
+    z-index: 9999;
+}
+
+.model .btn {
+    width: 6.5em;
+    height: 2.3em;
+    margin: 0.5em;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 0.625em;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.model button:hover {
+    color: black;
+}
+
+.model button:after {
+    content: "";
+    background: white;
+    position: absolute;
+    z-index: -1;
+    left: -20%;
+    right: -20%;
+    top: 0;
+    bottom: 0;
+    transform: skewX(-45deg) scale(0, 1);
+    transition: all 0.5s;
+}
+
+.model button:hover:after {
+    transform: skewX(-45deg) scale(1, 1);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.form-input {
+    width: 100%;
+    background: #01001d;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    color: white;
+    margin: 0 0 8px 0;
+    padding: 18px 26px;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    transition: 0.3s ease-in-out;
+}
+
+.form-input:focus {
+    background: rgba(255, 255, 255, 1);
+    color: #121212;
+}
+
+.form-input::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.form-input:focus::placeholder {
+    color: #121212;
+    opacity: 0.8;
+}
+
+.title,
+.label {
+    color: black;
+}

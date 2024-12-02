@@ -42,9 +42,11 @@ export default function CreateNftScreen(props) {
     } else {
       setStatus("generating nft image");
       let [imageData, nft] = await createImage(formData.description);
+      console.log("generating...");
       nftImageData = imageData;
       setNftImage(nft);
       setStatus("ready for minting");
+      console.log("ready");
     }
   };
   const mintNFT = async () => {
@@ -74,7 +76,6 @@ export default function CreateNftScreen(props) {
             onChange={handleInputChange}
           />
           <input
-
             type="text"
             value={formData.description}
             name="description"
@@ -95,7 +96,14 @@ export default function CreateNftScreen(props) {
               placeholder="make this NFT for sale"
               type="checkbox"
               name="isForSale"
-              onClick={() => setFormData((previousData) => { return { ...previousData, isForSale: !previousData.isForSale } })}
+              onClick={() =>
+                setFormData((previousData) => {
+                  return {
+                    ...previousData,
+                    isForSale: !previousData.isForSale,
+                  };
+                })
+              }
             />
           </div>
           <div className="radio">
@@ -105,7 +113,14 @@ export default function CreateNftScreen(props) {
               placeholder="mint this NFT with ZTK"
               type="checkbox"
               name="mintWithZTK"
-              onClick={() => setFormData((previousData) => { return { ...previousData, mintWithZTK: !previousData.mintWithZTK } })}
+              onClick={() =>
+                setFormData((previousData) => {
+                  return {
+                    ...previousData,
+                    mintWithZTK: !previousData.mintWithZTK,
+                  };
+                })
+              }
             />
           </div>
           <Button
@@ -124,7 +139,13 @@ export default function CreateNftScreen(props) {
       <div className="image-container ">
         <div className="imageNFt">
           {nftImage ? (
-            <img src={nftImage} alt="AI generated image" className="imageNFtimg" height={450} width={400} />
+            <img
+              src={nftImage}
+              alt="AI generated image"
+              className="imageNFtimg"
+              height={450}
+              width={400}
+            />
           ) : (
             <Spinner className="spinner" animation="border" role="status">
               <span className="visually-hidden">Loading...</span>

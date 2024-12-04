@@ -1,8 +1,5 @@
 import React from 'react';
-import { Modal, Button, Form, Card } from 'react-bootstrap';
-import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import axios from 'axios';
 import { getURL } from '../utilities/nft-service';
 import './nftScreen.css'
 
@@ -29,26 +26,26 @@ function NftScreen(props) {
 
   return (
 
-    <div class="card">
-      <div class="infos">
-        <div class="image">
+    <div className="card">
+      <div className="infos">
+        <div className="image">
           {nftImg && (
             <img src={nftImg} alt="nft" height={250} width={250} className='nftimage' />
           )}
         </div>
-        <div class="info">
+        <div className="info">
           <div>
-            <p class="name">
+            <p className="name">
               {nft.name ?? 'loading...'}
             </p>
-            <p class="function">
+            <p className="function">
               description: {nft.description ?? 'loading...'}
             </p>
           </div>
-          <div class="stats">
-            <p class="flex">
+          <div className="stats">
+            <p className="flex">
               Cost
-              <span class="state-value">
+              <span className="state-value">
                 {nft.cost ?? 'loading...'}
               </span>
             </p>

@@ -7,6 +7,7 @@ import { networks } from './networks';
 import Home from './components/Home';
 import Web3 from 'web3'
 import ZwalletContractBuild from './abi/ZWallet.json';
+import { create } from '@web3-storage/w3up-client';
 
 let zwalletcontract;
 function App() {
@@ -142,6 +143,7 @@ function App() {
     const nftsNumber = await zwalletcontract.methods.tokenCounter().call();
 
     const nft = await zwalletcontract.methods.allNFTs(id).call();
+    console.log("aaaaaaa",nft);
     setId((id + 1) % nftsNumber);
     return nft;
   }

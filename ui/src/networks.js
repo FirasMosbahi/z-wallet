@@ -5,6 +5,7 @@ export const networks = {
     4: 'Rinkeby',
     5: 'Goerli',
     42: 'Kovan',
+    1337: 'ganache',
     42161: 'Arbitrum One',
     80001: 'Matic (Polygon) Mumbai Testnet',
     79377087078960: 'Optimism Kovan',

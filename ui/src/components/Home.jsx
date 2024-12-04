@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Link } from 'react-router-dom';
 import CreateNftScreen from "./create-nft";
 import NftScreen from './nftScreen'
 import BuyModel from './buyModel'
 import './Home.css'
+
 function Home(props) {
   const [ethPrice, setEthPrice] = useState(null);
 
-  async function getEthPriceInUSD() {
+  // Use useCallback to memoize the function so that it's not recreated on every render
+  const getEthPriceInUSD = useCallback(async () => {
     try {
       const response = await fetch(
         "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
@@ -20,11 +21,13 @@ function Home(props) {
     } catch (error) {
       console.error("Error:", error);
     }
-  }
+  }, [props.userBalance]); // Only recreate the function when userBalance changes
+
   useEffect(() => {
-    getEthPriceInUSD();
-    props.getzcoinBalance()
-  }, [getEthPriceInUSD,]);
+    getEthPriceInUSD(); // Call function to fetch ETH price
+    props.getzcoinBalance(); // Call this only once on mount, or based on specific condition if needed
+  }, [getEthPriceInUSD, props.getzcoinBalance]); // Avoid re-triggering unnecessarily
+
   const [showBuyModal, setShowBuyModal] = useState(false);
 
   const handleBuy = () => {
@@ -33,6 +36,7 @@ function Home(props) {
   const handleBuyModalClose = () => {
     setShowBuyModal(false);
   };
+
   return (
     <div
       id="Home"
@@ -92,8 +96,8 @@ function Home(props) {
                       <button
                         className="rounded-pill w-100"
                         onClick={() => {
-                          props.connectHandler()
-                          props.getzcoinBalance()
+                          props.connectHandler();
+                          props.getzcoinBalance();
                         }}
                       >
                         Get Updated
@@ -117,8 +121,8 @@ function Home(props) {
           </Col>
         </Row>
       </Container>
-      <CreateNftScreen createNFTHandler = {props.mintNFTHandler} />
-      <NftScreen  buyNFT={props.buyNFT} user={props.user} getNFT={props.getNFT} />
+      <CreateNftScreen createNFTHandler={props.mintNFTHandler} />
+      <NftScreen buyNFT={props.buyNFT} user={props.user} getNFT={props.getNFT} />
     </div>
   );
 }

@@ -40,15 +40,10 @@ function NftScreen(props) {
         <div className="info">
           <div>
             <p className="name">{nft.name ?? "loading..."}</p>
-            <p className="function">
-              description: {nft.description ?? "loading..."}
-            </p>
+            <p className="function">{nft.description ?? "loading..."}</p>
           </div>
           <div className="stats">
-            <p className="flex">
-              Cost
-              <span className="state-value">{nft.cost ?? "loading..."}</span>
-            </p>
+            <p className="flex">Cost : {nft.cost ?? "loading..."}</p>
           </div>
         </div>
       </div>

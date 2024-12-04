@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import './Banner.css'
+import "./Banner.css";
 export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -55,12 +55,12 @@ export const Banner = () => {
               Our Walet is a secure and user-friendly cryptocurrency wallet that
               allows you to manage your digital assets with ease
             </p>
-            <button className="learn-more align-items-center bannerBtn">
-              <span className="circle" aria-hidden="true">
-                <span className="icon arrow"></span>
-              </span>
-              <span className="button-text">Add Wallet</span>
-            </button>
+            {/*<button className="learn-more align-items-center bannerBtn">*/}
+            {/*  <span className="circle" aria-hidden="true">*/}
+            {/*    <span className="icon arrow"></span>*/}
+            {/*  </span>*/}
+            {/*  <span className="button-text">Add Wallet</span>*/}
+            {/*</button>*/}
           </Col>
           <Col xs={12} md={6} xl={5}>
             <img src={require("../assets/img/logo_banner.png")} alt="header" />

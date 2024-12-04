@@ -19,13 +19,14 @@
     background: linear-gradient(to right, #3f4c6b, #606c88);
     padding: 15px;
     border-radius: 10px;
-    max-width: 40%;
+    max-width: 60%;
+    min-width: 35%;
     margin-right: 5%;
 }
 
 .title {
     font-size: 2rem;
-    line-height: 6rem;
+    line-height: 4rem;
     font-weight: 700;
     letter-spacing: -0.025em;
     color: #fff;
@@ -33,7 +34,7 @@
 
 .description {
     line-height: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin-top: 1rem;
     color: rgb(209 213 219);
 }
@@ -51,12 +52,11 @@
     line-height: 1.5rem;
     font-size: 1.25rem;
     color: rgb(255 255 255);
-    padding: 1rem 1rem;
-    margin: 0.75rem 1rem;
+    padding: 0.5rem 0.5rem;
 }
 
 .radio-btn {
-    transform: scale(2);
+    transform: scale(1.5);
     margin-right: 0.5rem;
 }
 
@@ -66,8 +66,8 @@
 
 .form div input {
     outline: none;
-    line-height: 1.5rem;
-    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-size: 1rem;
     color: rgb(255 255 255);
     padding: 1rem 2rem;
     margin: 0.75rem 1rem;
@@ -131,4 +131,12 @@
     margin-left: 12rem;
     width: 10rem;
     height: 10rem;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }

@@ -3,7 +3,7 @@
     padding: 160px 0 100px 0;
     background-image: url('../assets/img/banner_bg.jpg');
     background-position: top center;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 

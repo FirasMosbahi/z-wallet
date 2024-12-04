@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useState, useEffect } from "react";
-import './NavBar.css'
+import "./NavBar.css";
 function NavBar(props) {
   const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
@@ -34,29 +34,7 @@ function NavBar(props) {
           <span className="navbar-toggler-icon"></span>
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <br />
-            <Nav.Link
-              href="#home"
-              className={
-                activeLink === "home" ? "active navbar-link" : "navbar-link"
-              }
-              onClick={() => onUpdateActiveLink("home")}
-            >
-              Home
-            </Nav.Link>
-            <br />
-            <Nav.Link
-              href="#Contact"
-              className={
-                activeLink === "Contact" ? "active navbar-link" : "navbar-link"
-              }
-              onClick={() => onUpdateActiveLink("Contact")}
-            >
-              Contact
-            </Nav.Link>
-            <br />
-          </Nav>
+          <Nav className="ms-auto"></Nav>
           <br />
           <Nav className=" navbar-text">
             <button className="vvd" onClick={props.connectHandler}>

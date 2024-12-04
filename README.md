@@ -33,19 +33,29 @@ of smart contract standards ERC20 and ERC721, which manage our token ZToken and 
 ### 1. Clone the repository:
 git clone https://github.com/FirasMosbahi/z-wallet.git
 ### 2.Install the dependencies:
-npm install  
+yarn   
 
 cd ui  
 
-npm install
-### 3.Compile and migrate the smart contracts:
+yarn
+### 2.configure ganache:
+open ganache 
+choose quickstart
+change configuration to http://127.0.0.1   - port to 8545  - server id 1337
+take public address of first account 
+
+### 3.configure truffle:
+go search in project for 1337 and change address to address copied from ganache 
+places : networks in myNFT.json and ERC732.json 
+
+### 4.Compile and migrate the smart contracts:
 truffle compile  
 
-truffle migrate
-### 4.Start the development server
+truffle migrate --network development --reset
+### 5.Start the development server
 cd ui  
 
-npm run start
+yarn run start
 
 ## Contributing: 
 Contributions to ZWallet are welcome! If you find any bugs or want to suggest new features, please open an issue or submit a pull request.

@@ -1,44 +1,32 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity ^0.8.0;
+
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract ZCoin is ERC20Capped , ERC20Burnable{
-  address payable public owner;
-  uint256 public blockReward;
-  uint256 public initialValue;
-  uint256 public cappedAt;
-  ufixed8x8 public rate;
-  modifier onlyOwner {
-    require(msg.sender == owner,"Only the owner can call this function");
-    _;
-  }
-  constructor(uint256 _blockReward,uint256 initialValue,uint256 _cappedAt) ERC20("Z-Token" , "ZTK") ERC20Capped(cappedAt * (10**18)) {
-    owner = payable(msg.sender);
-    miningReward = _miningReward * (10**18);
-    cappedAt = _cappedAt * (10**18);
-    _mint(owner,initialValue * (10**18));
-    blockReward = _blockReward * (10**18);
-  }
-  function _mint(address account,uint256 amount) internal virtual override(ERC20Capped, ERC20) {
-    require(ERC20.totalSupply() + amount <= cap(), "ERC20Capped: cap exceeded");
-    super._mint(account, amount);
-  }
-  function _mintMinerReward() internal {
-    _mint(block.coinbase,blockReward);
-  }
-  function _beforeTokenTransfer(address from,address to,uint256 value) internal virtual override{
-    if(from != address(0) && to != block.coinbase && block.coinbase != address(0)){
-      _mintMinerReward();
+contract ZCoin is ERC20 {
+    address payable owner;
+    uint256 public tokenPrice; // Set your desired token price
+    event ReceivedEth(address indexed sender, uint256 amount);
+    event ZCoinTransfer(address sender,address receiver,uint256 amount);
+
+    constructor(uint256 _tokenPrice, uint256 _initialSupply) ERC20("ZToken", "ZTK") {
+        tokenPrice = _tokenPrice;
+        _mint(address(this), _initialSupply);
     }
-    super._beforeTokenTransfer(from,to,value);
-  }
-  function setBlockReward(uint256 reward) public onlyOwner {
-    blockReward = reward * (10**18);
-  }
 
-  function destroy() public onlyOwner {
-    selfdestruct(owner);
-  }
+    fallback() external payable {
+        emit ReceivedEth(msg.sender, msg.value);
+    }
+
+    receive() external payable {
+        emit ReceivedEth(msg.sender, msg.value);
+    }
+    function getBalance(address account) public view returns (uint256){
+        return balanceOf(account);
+    }
+    function transferZCoin(address from,address to, uint256 amount) public returns (bool) {
+        _transfer(from, to, amount);
+        return true;
+    }
 }
